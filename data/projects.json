@@ -1,0 +1,447 @@
+{
+    "projects": [
+        {
+            "id": "xfinity-watchathon",
+            "dir": "xfw",
+            "title": "Xfinity Watchathon",
+            "description": "Multi award-winning custom PHP-based website celebrating a week of free-to-access Xfinity content, containing interactive games suitable for desktop, mobile, and even TV users via the Xfinity TV browser.",
+            "links": [
+                {
+                    "type":"archive",
+                    "url":"http://google.com",
+                    "title": null
+                }
+            ],
+            "tags": [
+                "PHP", 
+                "jQuery", 
+                "TV"
+            ],
+            "awards": [
+                "2019 Communicator Awards",
+                "2018 ADCP Award",
+                "2018 Cablefax Digital Awards"
+            ],
+            "media": [
+                {
+                    "type": "video",
+                    "frame": "tv",
+                    "file": "xfinity--watchathon-x1.mp4",
+                    "loop": true,
+                    "controls": true,
+                    "autoplay": true
+                },
+                {
+                    "type": "image",
+                    "file": "xfinity--watchathon--family.png",
+                    "alt": "Xfinity Watchathon homepage (2017)",
+                    "shadow": false
+                },
+                {
+                    "type": "image",
+                    "file": "xfinity--watchathon-2018.png",
+                    "alt": "Xfinity Watchathon (2018)",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "aarp-staying-sharp",
+            "dir": "aarpss",
+            "title": "AARP Staying Sharp",
+            "description": "A series of Brain-centric animations focused on increasing awaresness and engagement among AARP members, displayed across multiple media platforms.",
+            "tags": [
+                "Animation", 
+                "Ads",
+                "Facebook", 
+                "Google"
+            ],
+            "media": [
+                {
+                    "type": "vimeo",
+                    "file": "https://vimeo.com/511307749/2c3eb0e534",
+                    "alt": "AARP // Get Brainy // 01 - Restorative Sleep",
+                    "height": 1080,
+                    "width": 1920
+                },
+                {
+                    "type": "vimeo",
+                    "file": "https://vimeo.com/511248541/c2e76a4b98",
+                    "alt": "AARP // Get Brainy // 03 - Eat Right",
+                    "height": 1080,
+                    "width": 1920
+                },
+                {
+                    "type": "vimeo",
+                    "file": "https://vimeo.com/511304760/c87ea29037",
+                    "alt": "AARP // Think Fast // 05 - Be Social",
+                    "height": 1080,
+                    "width": 1920
+                },
+                {
+                    "type": "image",
+                    "file": "aarp-staying-sharp--collage.png",
+                    "alt": "AARP Staying Sharp Ad Campaigns"
+                }
+            ]
+        },
+        {
+            "id": "comcast-business-brand-hub",
+            "dir": "comcast-brand-hub",
+            "title": "Comcast Business Brand Hub",
+            "description": "A WordPress-based website, made use of the Kadence plugins to provide a seemless editing experience for developers and editors, integrated with Comcast's own SSO.",
+            "tags": [
+                "CMS",
+                "WordPress",
+                "Local",
+                "Javascript",
+                "SSO"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "comcast--brand-hub--desktop.png",
+                    "alt": "Comcast Brand Hub",
+                    "shadow": false
+                },
+                {
+                    "type": "image",
+                    "file": "comcast--brand-hub--wordpress.png",
+                    "alt": "Comcast Brand Hub",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "cmi-promex",
+            "dir": "cmi-promex",
+            "title": "CMI Promex",
+            "description": "A custom WordPress theme for a manufacturing company serving the needs for rail industry, using Kadence blocks for easily editable content for editors.",
+            "tags": [
+                "CMS",
+                "WordPress",
+                "Local",
+                "Javascript"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "cmi-promex--device-lockup.png",
+                    "alt": "CMI-Promex website on various devices",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "xfinity-brand-hub",
+            "dir": "xfbh",
+            "title": "Xfinity Brand Hub",
+            "description": "This interactive PHP website was created to serve Xfinity's need for a secure, lightweight, and easy to use brand website for agencies to learn about and download Xfinity brand material, complete with outline style mobile navigation.",
+            "links": [
+                {
+                    "type":"git",
+                    "url":"https://github.com/mroosa/xfn-brandhub",
+                    "title": null
+                }
+            ],
+            "tags": [
+                "PHP", 
+                "jQuery"
+            ],
+            "media": [
+                {
+                    "type": "video",
+                    "frame": "laptop",
+                    "file": "xfinity--brand-hub--desktop-1920x1200.mp4",
+                    "loop": true,
+                    "controls": true,
+                    "autoplay": true
+                },
+                {
+                    "type": "image",
+                    "file": "xfinity--brand-hub--device-lockup-2.png",
+                    "alt": "Xfinity Brand-Hub across multiple devices",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "xfinity-communities-handbook",
+            "dir": "xfchandbook",
+            "title": "Xfinity Communities Handbook",
+            "description": "A highly informative website built in WordPress with Kadence for Xfinity's multi-dwelling unit customers.",
+            "tags": [
+                "CMS",
+                "WordPress", 
+                "Javascript"
+            ],
+            "links": [
+                {  
+                    "type": "live",
+                    "url":"https://xchandbook.com/",
+                    "title": "Xfinity Communities Handbook"
+                }
+            ],
+            "media": [
+                {
+                    "type":"image",
+                    "file":"xfchandbook--device-lockup.png",
+                    "alt":"Xfinity Communities Handbook",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "aarp--esi",
+            "dir": "esi",
+            "title": "AARP — Enterprise, Strategy & Innovation",
+            "description": "Custom Drupal-based website was created for AARP to help driven employees to innovate and produce solutions for the benefit of AARP 50-plus members.",
+            "tags": [
+                "CMS",
+                "Drupal 7.x", 
+                "jQuery"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "ESI-port01-tact-04.jpg",
+                    "alt": "AARP — Enterprise, Strategy & Innovation on mobile, tablet and desktop"
+                },
+                {
+                    "type": "image",
+                    "file": "ESI-port01-tact-03.jpg",
+                    "alt": "ESI"
+                },
+                {
+                    "type": "image",
+                    "file": "ESI-port01-tact-01.jpg",
+                    "alt": "ESI"
+                }
+            ]
+        },
+        {
+            "id": "cheshire-law-group",
+            "dir": "clg",
+            "title": "Cheshire Law Group",
+            "description": "An award-winning custom Wordpress site for a non-profit law practice located in Philadelphia. The theme includes custom post types to make it easy to create and modify employee bios, case studies, publications, and awards by a team of editors.",
+            "tags": [
+                "CMS",
+                "WordPress", 
+                "jQuery"
+            ],
+            "awards": [
+                "2016 Webby Award",
+                "2015 Webby Award"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "clg--device-lockup.png",
+                    "alt": "Cheshire Law Group as seen on different devices",
+                    "shadow": false
+                },
+                {
+                    "type": "image",
+                    "file": "clg--desktop--01.png",
+                    "alt": "Cheshire Law Group website",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "imagine-bc",
+            "dir": "ibc",
+            "title": "Imagine BC",
+            "description": "Fully customized WordPress website as part of a branding packge for a blockchain staartup focused on empowering its users.",
+            "tags": [
+                "CMS",
+                "WordPress", 
+                "Javascript"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "ImagineBC-port01-tact-01.png",
+                    "alt": "Imagine BC website"
+                }
+            ]
+        },
+        {
+            "id": "xfinity-emails",
+            "dir": "xfinity-emails",
+            "title": "Xfinity Emails",
+            "description": "HTML emails built for Xfinity on various platforms including third party, internal, and Outlook.",
+            "tags": [
+                "HTML", 
+                "Postman",
+                "Outlook Templates",
+                "MailChimp",
+                "Campaign Monitor"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "xfinity-emails--px.png",
+                    "alt": "Xfinity PX Newsletter emails on desktop and mobile",
+                    "shadow": false
+                },
+                {
+                    "type": "image",
+                    "file": "xfinity-emails--multiple.png",
+                    "alt": "Various Xfinity Emails"
+                }
+            ]
+        },
+        {
+            "id": "hi-res-podcast",
+            "dir": "hires",
+            "title": "HiRes Podcast",
+            "description": "Small-scale custom HTML website designed by Ryan Starr for his popular Philadelphia-based creatives podcast.",
+            "tags": [
+                "HTML", 
+                "Javascript"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "hires-podcast--desktop.png",
+                    "alt": "Hi-Res Podcast desktop website",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "lighthouse-live",
+            "title": "Lighthouse Live",
+            "description": "Product and feature demonstration video for a personal security application focused on real-time tracking and reporting for personal security matters.",
+            "tags": [
+                "Animation"
+            ],
+            "media": [
+                {
+                    "type": "vimeo",
+                    "file": "https://vimeo.com/399898733/bdbeb9f099",
+                    "alt": "Lighthouse Live video"
+                }
+            ]
+        },
+        {
+            "id": "iss--world-language-initiative",
+            "dir": "iss-wli",
+            "title": "ISS - World Language Initiative",
+            "description": "Multi-language Drupal-based website focusing on teaching Arabic and English as a second language in their international school locations. The website is primarily English, but an Arabic version can be toggled at any time.",
+            "tags": [
+                "CMS",
+                "Drupal 6.x",
+                "Multi-Site",
+                "Multi-Language",
+                "jQuery"
+            ],
+            "media": [
+                {
+                    "type": "compare",
+                    "files": [
+                        {
+                            "src": "iss-wli--desktop--home--english.png",
+                            "alt": "ISS World Language Initiative Homepage - English"
+                        },
+                        {
+                            "src": "iss-wli--desktop--home--arabic.png",
+                            "alt": "ISS World Language Initiative Homepage - Arabic"
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "file": "iss-wli--desktop--lockup.png",
+                    "alt": "",
+                    "shadow": false
+                }
+            ]
+        },
+        {
+            "id": "iss-educator-careers",
+            "dir": "issec",
+            "title": "International School Services - Educator Careers",
+            "description": "A large-scale website focused on helping teachers find the resources they need when teaching overseas.",
+            "tags": [
+                "CMS",
+                "Drupal 6.x",
+                "jQuery"
+            ],
+            "hide": true
+        },
+        {
+            "id": "discover-sports-and-entertainment",
+            "dir": "dse",
+            "title": "Discover Sports and Entertainment",
+            "description": "A small Bootstrap-based brochure site for a small sports marketing company.",
+            "tags": [
+                "HTML",
+                "Bootstrap",
+                "javascript"
+            ],
+            "hide": true
+        },
+        {
+            "id": "influent-50",
+            "dir": "i50",
+            "title": "Influent 50",
+            "description": "A Drupal-based microsite created as part of a branding effort for a new AARP B2B agency for businesses targeting the 50+ demographic.",
+            "tags": [
+                "CMS",
+                "Drupal 7.x",
+                "jQuery"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "i50-port01-tact01_0.jpg",
+                    "alt": "Influent 50 website as seen on a laptop"
+                }
+            ]
+        },
+        {
+            "id": "the-results-companies",
+            "dir": "trc",
+            "title": "The Results Companies",
+            "description": "A large-scale B2B Drupal site created for an established US-based call center with nationwide offices. In addition to providing general information, the site contained up-to-date news articles, password-protected white papers, an event calendar, and an interactive map.",
+            "tags": [
+                "CMS",
+                "Drupal 6.x",
+                "jQuery"
+            ],
+            "media": [
+                {
+                    "type": "image",
+                    "file": "TRC-port01-tact01_0.jpg",
+                    "alt": "The Results Companies website as seen on a laptop"
+                }
+            ]
+        },
+        {
+            "id": "rev-spring",
+            "dir": "rev-spring",
+            "title": "RevSpring",
+            "description": "A Drupal-based website focused on providing large amounts of easily digestable content coupled with an event calendar and downloadable content.",
+            "tags": [
+                "CMS",
+                "Drupal 6.x",
+                "jQuery"
+            ],
+            "hide": true
+        },
+        {
+            "id": "seacrest-village",
+            "dir": "seacrest",
+            "title": "Seacrest Village",
+            "description": "Large-scale Drupal multi-site for a retirement community sharing the a single template tailored for each sub-site.",
+            "tags": [
+                "CMS",
+                "Drupal 5.x // 6.x",
+                "jQuery"
+            ],
+            "hide": true
+        }
+    ]
+}

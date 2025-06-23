@@ -1,0 +1,18 @@
+{
+    "list": [
+        {
+        }
+    ],
+    "commands": [
+        {
+            "help": null,
+            "dir": null,
+            "ls": null,
+            "list": null,
+            "clear": null,
+            "cd": null,
+            "view": null,
+            "konami": null
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Brass Mono';
+    src: url('BrassMono-BoldItalic.woff2') format('woff2'),
+        url('BrassMono-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono';
+    src: url('BrassMono-Regular.woff2') format('woff2'),
+        url('BrassMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono';
+    src: url('BrassMono-Italic.woff2') format('woff2'),
+        url('BrassMono-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono';
+    src: url('BrassMono-Bold.woff2') format('woff2'),
+        url('BrassMono-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono Code';
+    src: url('BrassMonoCode-Bold.woff2') format('woff2'),
+        url('BrassMonoCode-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono Code';
+    src: url('BrassMonoCode-Italic.woff2') format('woff2'),
+        url('BrassMonoCode-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono Code';
+    src: url('BrassMonoCode-BoldItalic.woff2') format('woff2'),
+        url('BrassMonoCode-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Brass Mono Code';
+    src: url('BrassMonoCode-Regular.woff2') format('woff2'),
+        url('BrassMonoCode-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

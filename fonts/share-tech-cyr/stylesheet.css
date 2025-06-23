@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Share Tech CYR';
+    src: url('ShareTechCYR-Bold.woff2') format('woff2'),
+        url('ShareTechCYR-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Share Tech CYR';
+    src: url('ShareTechCYR-Regular.woff2') format('woff2'),
+        url('ShareTechCYR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Share Tech CYR';
+    src: url('ShareTechCYR-Italic.woff2') format('woff2'),
+        url('ShareTechCYR-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Share Tech CYR';
+    src: url('ShareTechCYR-BoldItalic.woff2') format('woff2'),
+        url('ShareTechCYR-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+

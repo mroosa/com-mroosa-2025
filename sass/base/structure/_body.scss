@@ -1,0 +1,115 @@
+::selection {
+    background: #f90;
+    color: #292929;
+}
+
+html * {
+    box-sizing: border-box;
+    font-optical-sizing: auto;
+    font-variation-settings: "wdth" 100;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: #292929;
+    background: url(../images/noise-low.png), url(../images/grid-lrg-line-alt.png) top center , url(../images/bg-thin.png) center center, #292929;
+    color: #f6f6f6;
+    font-family: $font-serif;
+    font-size: clamp(14px, 1.5vw, 16px);
+    line-height: 1.65;
+    font-weight: 300;
+
+    a {
+        color: #ffffff;
+    }
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Oswald", Arial, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-optical-sizing: auto;
+    font-variation-settings: "wdth" 100;
+}
+
+h1 {
+    font-size: 72px;
+}
+h2 {
+    font-size: 48px;
+    margin-bottom: .5em;
+}
+
+header {
+    height: $size__header;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background: transparent;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+    transition: background .25s, backdrop-filter .25s;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+
+    &.scroll {
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 0 10px rgba(0,0,0,.5);
+        background: #1b4d9fcc;
+    }
+}
+
+.contain {
+    max-width: $mid;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.tags {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    
+    li {
+        display: block;
+        padding: 3px 10px;
+        border: 2px solid #666666;
+        background: #343434;
+        color: $orange;
+        text-transform: uppercase;
+        font-family: $font-condensed;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        border-radius: 7px;
+        transition: background-color .25s, border-color .25s, color .25s;
+
+        &:hover {
+            background: $orange;
+            color: #42301d;
+            border-color: $dkorange;
+
+            &.award {
+                &::before {
+                    color: #42301d;
+                }
+            }
+        }
+
+        &.award {
+            &::before {
+                content: "★";
+                color: #fc0;
+                padding-right: 4px;
+                line-height: 0;
+                display: inline-block;
+                font-size: 125%;
+                transition: color .25s;
+            }
+        }
+    }
+}

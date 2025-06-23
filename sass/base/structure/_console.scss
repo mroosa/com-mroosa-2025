@@ -1,0 +1,90 @@
+
+#console {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,.25);
+    font-family: 'Lucida Console', monospace;
+    z-index: 98;
+    
+    width: 100%;
+    position: fixed;
+    top: -25vh;
+    left: 0;
+    height: 25vh;
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(10px);
+    transition: .25s top;
+    color: #0f0;
+    text-shadow: 0 0 5px rgba(0,255,0,.5);
+
+    a {
+        color: #0f0;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &.open {
+        top:0;
+    }
+
+    #display,
+    #input,
+    #terminal {
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    #display,
+    #terminal {
+        background: transparent;
+        border: 0;
+        padding: 10px;
+    }
+
+
+    #display {
+        flex-grow: 1;
+        resize: none;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-content: flex-start;
+        overflow: auto;
+        
+        &:focus {
+            outline: none;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    #terminal {
+        width: 100%;
+        padding-top: 0;
+        padding-left: 24px;
+        position: relative;
+        color: #0f0;
+        text-shadow: 0 0 5px rgba(0,255,0,.5);
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    #input {
+        position: relative;
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            content: "$";
+            display: block;
+        }
+    }
+}
