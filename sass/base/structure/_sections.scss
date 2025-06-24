@@ -23,14 +23,14 @@ section {
 /* ------------- */
 /* --- About --- */
 
-@keyframes cloudTravel {
-    from {
+// @keyframes cloudTravel {
+//     from {
         
-    }
-    to {
-        // left: calc(100% + 300px);
-    }
-}
+//     }
+//     to {
+//         left: calc(100% + 300px);
+//     }
+// }
 
 @keyframes brickHit {
     0% {
@@ -222,37 +222,37 @@ section {
         }
     }
 
-    .cloud {
-        display: block;
-        background: url(../images/about/cloud_sprite.png) top center no-repeat;
-        height: 62px;
-        width: 272px;
-        z-index: 12;
-        position: absolute;
-        top: 10%;
-        left: 50%;
+    // .cloud {
+    //     display: block;
+    //     background: url(../images/about/cloud_sprite.png) top center no-repeat;
+    //     height: 62px;
+    //     width: 272px;
+    //     z-index: 12;
+    //     position: absolute;
+    //     top: 10%;
+    //     left: 50%;
 
-        &[data-type="1"] {
-            background-position: center 0;
-            animation: linear cloudTravel 480s;
-        }
-        &[data-type="2"] {
-            background-position: center -62px;
-            animation: linear cloudTravel 380s;
-        }
-        &[data-type="3"] {
-            background-position: center -134px;
-            animation: linear cloudTravel 540s;
-        }
-        &[data-type="4"] {
-            background-position: center -196px;
-            animation: linear cloudTravel 500s;
-        }
-        &[data-type="5"] {
-            background-position: center -258px;
-            animation: linear cloudTravel 480s;
-        }
-    }
+    //     &[data-type="1"] {
+    //         background-position: center 0;
+    //         animation: linear cloudTravel 480s;
+    //     }
+    //     &[data-type="2"] {
+    //         background-position: center -62px;
+    //         animation: linear cloudTravel 380s;
+    //     }
+    //     &[data-type="3"] {
+    //         background-position: center -134px;
+    //         animation: linear cloudTravel 540s;
+    //     }
+    //     &[data-type="4"] {
+    //         background-position: center -196px;
+    //         animation: linear cloudTravel 500s;
+    //     }
+    //     &[data-type="5"] {
+    //         background-position: center -258px;
+    //         animation: linear cloudTravel 480s;
+    //     }
+    // }
 
     #marty {
         display: block;

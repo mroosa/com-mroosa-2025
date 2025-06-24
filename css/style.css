@@ -265,7 +265,6 @@ section img {
 
 /* ------------- */
 /* --- About --- */
-@keyframes cloudTravel {}
 @keyframes brickHit {
   0% {
     transform: translate(0, 0);
@@ -419,36 +418,6 @@ section img {
   height: 288px;
   width: 300px;
   left: calc(95% - 200px);
-}
-#about .cloud {
-  display: block;
-  background: url(../images/about/cloud_sprite.png) top center no-repeat;
-  height: 62px;
-  width: 272px;
-  z-index: 12;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-}
-#about .cloud[data-type="1"] {
-  background-position: center 0;
-  animation: linear cloudTravel 480s;
-}
-#about .cloud[data-type="2"] {
-  background-position: center -62px;
-  animation: linear cloudTravel 380s;
-}
-#about .cloud[data-type="3"] {
-  background-position: center -134px;
-  animation: linear cloudTravel 540s;
-}
-#about .cloud[data-type="4"] {
-  background-position: center -196px;
-  animation: linear cloudTravel 500s;
-}
-#about .cloud[data-type="5"] {
-  background-position: center -258px;
-  animation: linear cloudTravel 480s;
 }
 #about #marty {
   display: block;

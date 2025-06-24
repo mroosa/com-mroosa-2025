@@ -134,12 +134,15 @@ window.onload = (w) => {
     // Animate
     let animateState = 'stopped';
     let animationID = 0;
-    function animateScene() {
+    let lastTime = 0;
+    function animateScene(timeStamp) {
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         animateClouds();
         handlePlatforms();
         marty.draw(ctx);
-        marty.update(input, platformAry);
+        marty.update(input, platformAry, deltaTime);
         
         if (animateState === 'playing') {
             animationID = requestAnimationFrame(animateScene);
@@ -153,7 +156,7 @@ window.onload = (w) => {
         }
     })
     // initial setup
-    animateScene();
+    animateScene(0);
 
     // Canvas extends on resize
     function resizeCanvas() {

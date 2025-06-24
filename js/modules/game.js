@@ -1,25 +1,4 @@
 import { randRange } from "./utilities.js";
-// function calcCanvasSize() {
-//     // get the wrapper size
-//     const wrapper = document.getElementById('wrapper')
-//     let rect = wrapper.getBoundingClientRect()
-//     const can = document.getElementById('can')
-//     // set the canvas size to wrapper, minus the 5px borders
-//     can.width = rect.width-5*4
-//     can.height = rect.height-5*4
-//     const WIDTH = can.width
-//     const HEIGHT = can.height
-//     // redraw
-//     const ctx = can.getContext('2d')
-//     ctx.fillStyle = 'white'
-//     ctx.fillRect(0,0,WIDTH,HEIGHT)
-//     ctx.beginPath()
-//     ctx.arc(WIDTH/2,HEIGHT/2, WIDTH/2,0, Math.PI*2)
-//     ctx.fillStyle = 'magenta'
-//     ctx.fill()
-// }
-// calcCanvasSize()
-// window.addEventListener('resize',calcCanvasSize)
 
 let debug = false;
 
@@ -56,35 +35,61 @@ class Player {
         this._sceneHeight = sceneHeight;
         this._width = width || 48;
         this._height = height || 64;
-        this._groundLevel = this._sceneHeight - this._height;
-        this._skyLimit = -200;
+        this._groundLevel = this._sceneHeight - this._height; // Default max
+        this._skyLimit = -200; // Default max
         this._x = x || 0;
         this._y = y || this._groundLevel;
         this._sprite = sprite || document.getElementById("playerSprite") || "";
-        this._spriteX = 0; // default top left
-        this._spriteY = 0; // default top left
+        this._spriteX = 0; // default top left - multiply by width/height for frame
+        this._spriteY = 0; // default top left - multiply by width/height for frame
+        this._numXSprite = 4; // Being lazy
+        this._numYSprite = 0; // Being lazy
+        this._fps = 9;
+        this._frameTimer = 0;
+        this._frameInterval = 1000/this._fps;
         this._deltaX = 0;
         this._deltaY = 0;
-        this._gravity = 1;
+        this._gravity = .5;
         this._lowerBound = this._groundLevel;
         this._upperBound = this._skyLimit;
+        this._direction = true; // Right facing
     }
 
     draw(context) {
-        context.fillStyle = "#f90";
-        context.fillRect(this._x, this._y, this._width, this._height);
+        if (debug) {
+            context.strokeStyle = "#f90";
+            context.strokeRect(this._x, this._y, this._width, this._height);
+        }
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
-        //context.drawImage(this._sprite, this._spriteX, this._spriteY, this._width, this._height, this._x, this._y, this._width, this._height);
+        context.drawImage(this._sprite, this._spriteX * this._width, this._spriteY * this._height, this._width, this._height, this._x, this._y, this._width, this._height);
     }
-    update(input, platforms) {
+    update(input, platforms, deltaTime) {
 
         // horizontal input
         if (input.keys.indexOf('ArrowLeft') > -1) {
-            this._deltaX = -5;
+            this._deltaX = -3.5;
+            this._spriteY = 1;
+            this._direction = false;
+            if (this._frameTimer > this._frameInterval) {
+                this._spriteX = this._spriteX + 1 < this._numXSprite ? this._spriteX + 1 : 0;
+                this._frameTimer = 0;
+            } else {
+                this._frameTimer += deltaTime;
+            }
         } else if (input.keys.indexOf('ArrowRight') > -1) {
-            this._deltaX = 5;
+            this._deltaX = 3.5;
+            this._spriteY = 0;
+            this._direction = true;
+            if (this._frameTimer > this._frameInterval) {
+                this._spriteX = this._spriteX + 1 < this._numXSprite ? this._spriteX + 1 : 0;
+                this._frameTimer = 0;
+            } else {
+                this._frameTimer += deltaTime;
+            }
         } else {
             this._deltaX = 0;
+            this._spriteX = 1;
+            this._spriteY = (this._direction) ? 0 : 1;
         }
         // horizontal output
         this._x += this._deltaX;
@@ -114,7 +119,6 @@ class Player {
                 // Find the highest platform currently below the player
                 if (this._y + this._height <= p._y) {
                     floor = (p._y - this._height <= floor) ? p._y - this._height : floor;
-                    // console.log("f: ",floor);
                 }
             }
         });
@@ -128,7 +132,7 @@ class Player {
             // Prevent jupming from repeating without a new key press
             if (input.noRepeat.indexOf('a') === -1){
                 if (this._y > this._upperBound) {
-                    this._deltaY -= 20;
+                    this._deltaY -= 15;
                 }
                 input.noRepeat.push('a');
             }
@@ -148,12 +152,12 @@ class Player {
             // falling
             this._deltaY += this._gravity;
             // Sprite control
-            this._spriteY = 0;
         } else {
             // stop falling
             this._deltaY = 0;
             // Sprite control
-            this._spriteY = 0;
+            // this._spriteX = 1;
+            this._spriteY = (this._direction) ? 0 : 1;
             this._y = this._lowerBound;
         }
 

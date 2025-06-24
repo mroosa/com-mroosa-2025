@@ -1,4 +1,4 @@
-<?php require_once 'vendor/parsedown/Parsedown.php'; #1.8 dev to fix PHP issues ?>
+<?php require_once './vendor/parsedown/Parsedown.php'; #1.8 dev to fix PHP issues ?>
 <?php $Parsedown = new Parsedown(); ?>
 
 
@@ -77,13 +77,9 @@
         </div>
         <div class="monitor">
             <img class="asset" id="cloud" data-type="sprite" src="images/about/cloud_sprite.png" alt="">
+            <img class="asset" id="playerSprite" data-type="sprite" src="images/about/LEGO-sprite.png" alt="">
             <div class="shrub"></div>
             <div class="shrub"></div>
-            <!-- <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-            <div class="cloud"></div> -->
             <div class="tile curtain left"></div>
             <div class="tile curtain right"></div>
             <div class="tile ground"></div>
