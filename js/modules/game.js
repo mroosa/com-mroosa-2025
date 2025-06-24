@@ -148,11 +148,14 @@ class Player {
             platformCallback();
         }
 
-        if (this._y <= this._lowerBound) {
+        if (this._y < this._lowerBound) {
             // falling
             this._deltaY += this._gravity;
+            this._spriteY = (this._direction) ? 4 : 5;
+            this._spriteX = 4;
             // Sprite control
         } else {
+            // console.log('else');
             // stop falling
             this._deltaY = 0;
             // Sprite control
