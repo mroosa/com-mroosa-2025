@@ -283,6 +283,45 @@ section img {
   position: relative;
   overflow: hidden;
   padding: 28px 40px;
+  transition: background 0.25s;
+}
+#about:before {
+  content: "";
+  display: block;
+  background: url(../images/noise-low.png), url(../images/about/stars.png), radial-gradient(ellipse at top, #06204f 50%, #000a1a);
+  background-size: auto, cover, auto;
+  background-attachment: fixed, scroll, fixed;
+  background-position: center -100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  transition: opacity 3s, background-position 3s;
+  opacity: 0;
+}
+@keyframes changeScene {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 100vh);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+#about.space h2,
+#about.space .shrub,
+#about.space .monitor,
+#about.space p,
+#about.space h2 span {
+  animation: ease-in-out 6s changeScene forwards;
+}
+#about.space:before {
+  opacity: 1;
+  background-position: center top;
 }
 #about .contain {
   display: grid;
@@ -307,16 +346,19 @@ section img {
   font-size: 20px;
   justify-content: center;
   align-items: center;
-  background: url(../images/about/tile-brick-2.png) center center, url(../images/noise-low.png) #9d5311;
   color: #fff;
-  border-left: 3px solid rgba(255, 255, 255, 0.5);
-  border-top: 3px solid rgba(255, 255, 255, 0.5);
-  border-right: 3px solid rgba(0, 0, 0, 0.5);
-  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   position: relative;
   transition: 0.25s background-color, 0.25s color;
   cursor: default;
+  border: 3px dotted rgba(255, 255, 255, 0.5);
+}
+#about h2 span.brick {
+  border-left: 3px solid rgba(255, 255, 255, 0.5);
+  border-top: 3px solid rgba(255, 255, 255, 0.5);
+  border-right: 3px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+  background: url(../images/about/tile-brick-2.png) center center, url(../images/noise-low.png) #9d5311;
 }
 #about h2 span.brick-hit {
   animation: ease-in-out brickHit 0.25s;
@@ -350,15 +392,17 @@ section img {
 }
 #about p {
   z-index: 18;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.59);
   position: relative;
   overflow: hidden;
   margin: 0;
   font-family: "Share Tech CYR", "Brass Mono", monospace;
 }
-#about p:after {
+#about p[data-scene="1"] {
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.59);
+}
+#about p[data-scene="1"]:after {
   content: "";
   display: block;
   width: 100%;
@@ -370,14 +414,14 @@ section img {
   background: url(../images/about/screw-sm.png) 8px 8px no-repeat, url(../images/about/screw-sm.png) calc(100% - 8px) 8px no-repeat, url(../images/about/screw-sm.png) calc(100% - 8px) calc(100% - 8px) no-repeat, url(../images/about/screw-sm.png) 8px calc(100% - 8px) no-repeat, linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 15px, rgba(255, 255, 255, 0) calc(100% - 15px), rgba(51, 51, 51, 0.4)), linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 15px, rgba(255, 255, 255, 0) calc(100% - 15px), rgba(51, 51, 51, 0.4));
   pointer-events: none;
 }
-#about p:nth-of-type(1) {
+#about p[data-scene="1"]:nth-of-type(1) {
   background: #ffe57d;
   grid-column-start: 4;
   grid-column-end: 9;
   grid-row-start: 3;
   grid-row-end: 8;
 }
-#about p:nth-of-type(2) {
+#about p[data-scene="1"]:nth-of-type(2) {
   background: #48e5ff;
   grid-column-start: 2;
   grid-column-end: 8;
@@ -393,7 +437,6 @@ section img {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
-  background: url(../images/about/level-background-fade-02.png) center 95% repeat-x, url(../images/about/level-background-fade-04.png) center bottom repeat-x;
 }
 #about .monitor canvas {
   position: relative;
@@ -405,7 +448,6 @@ section img {
 }
 #about .shrub {
   display: block;
-  background: url(../images/about/shrubs.png) center bottom no-repeat;
   height: 237px;
   width: 295px;
   z-index: 21;
@@ -414,7 +456,6 @@ section img {
   left: 5%;
 }
 #about .shrub:nth-of-type(2) {
-  background: url(../images/about/shrubs-2.png) center bottom no-repeat;
   height: 288px;
   width: 300px;
   left: calc(95% - 200px);
@@ -472,9 +513,33 @@ section img {
   display: block;
   width: 100%;
   height: 26px;
-  background: url(../images/about/tile-ground-48.png);
   position: absolute;
   bottom: 0;
+}
+#about[data-current-scene="1"] .tile.ground {
+  background: url(../images/about/tile-ground-48.png);
+}
+#about[data-current-scene="1"] .shrub {
+  background: url(../images/about/shrubs.png) center bottom no-repeat;
+}
+#about[data-current-scene="1"] .shrub:nth-of-type(2) {
+  background: url(../images/about/shrubs-2.png) center bottom no-repeat;
+}
+#about[data-current-scene="1"] .monitor {
+  background: url(../images/about/level-background-fade-02.png) center 95% repeat-x, url(../images/about/level-background-fade-04.png) center bottom repeat-x;
+}
+#about[data-current-scene="2"] .tile.ground {
+  background: url(../images/about/tile-moon.png);
+}
+#about[data-current-scene="2"] .shrub {
+  background: url(../images/about/LEGO-car.png) center bottom no-repeat;
+}
+#about[data-current-scene="2"] .shrub:nth-of-type(2) {
+  left: calc(95% - 300px);
+  background: url(../images/about/LEGO-space-dish.png) center bottom no-repeat;
+}
+#about[data-current-scene="2"] .monitor {
+  background: url(../images/about/level-background-fade-06.png) center 95% repeat-x, url(../images/about/level-background-fade-08.png) center bottom repeat-x;
 }
 
 /* ------------- */

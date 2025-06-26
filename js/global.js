@@ -9,6 +9,10 @@ import Game from "./modules/game.js";
 const {siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearLine, clearDisplay} = Console;
 const {filmGap} = Carousel;
 
+let bonus = false;
+let animateState = 'stopped';
+let curScene = 1;
+
 window.onload = (w) => {
     Carousel.setup();
     Comparison.setup();
@@ -76,7 +80,7 @@ window.onload = (w) => {
     const plyrWd = 48;
     const initX = canvas.width * .25; // 25%
     const initY = canvas.height - plyrHt - 100; // Start with playing jumping to engage interactivity
-    const marty = new Game.Player(canvas.width, canvas.height, plyrWd, plyrHt, initX, initY);
+    const marty = new Game.Player(canvas.width, canvas.height, plyrWd, plyrHt, initX, initY, null, 4);
 
     /// Environment
     
@@ -108,6 +112,12 @@ window.onload = (w) => {
     function getPlatforms() {
         let _platformAry = [];
         // TODO: Look for "platform" class to auto add
+        const htmlPlatforms = document.querySelectorAll("#about .platform");
+        htmlPlatforms.forEach(e => {
+            const isSolid = (e.attributes['data-solid'] !== 'undefined') ? true : false;
+            const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, isSolid);
+            _platformAry.push(platform);
+        })
 
         // Hand picked elements
         const aboutTitle = document.querySelectorAll("#about .contain h2 span");
@@ -132,17 +142,23 @@ window.onload = (w) => {
     }
     
     // Animate
-    let animateState = 'stopped';
     let animationID = 0;
     let lastTime = 0;
     function animateScene(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        animateClouds();
+        if (bonus) {
+            // remove platforms & clouds
+            if (platformAry.length > 0) {
+                platformAry = [];
+            }
+        } else {
+            animateClouds();
+        }
         handlePlatforms();
         marty.draw(ctx);
-        marty.update(input, platformAry, deltaTime);
+        marty.update(input, platformAry, deltaTime, bonus);
         
         if (animateState === 'playing') {
             animationID = requestAnimationFrame(animateScene);
@@ -194,7 +210,7 @@ function hitBlock(b) {
                 b.classList.add("spent");
                 setTimeout(() => {
                     ee();
-                }, 250);
+                }, 250);                
             }
             blockHits++;
             b.setAttribute("data-hits", blockHits);
@@ -203,7 +219,16 @@ function hitBlock(b) {
 }
 
 function ee() {
-    document.querySelector("#about .monitor").classList.add("space");
+    document.getElementById("about").classList.add("space");
+    // Changes post scene change
+    setTimeout(() => {
+        bonus = true;
+        curScene++;
+        document.querySelectorAll(".brick").forEach(e=>{e.classList.remove('brick');});
+        document.getElementById("about").setAttribute('data-current-scene', curScene);
+        document.querySelector("#about h2 span.special").classList.remove('special');
+        document.querySelectorAll('#about p[data-scene="1"]').forEach((e)=>{e.style.opacity = 0;});
+    }, 3000);
 }
 
 

@@ -30,7 +30,7 @@ class InputHandler {
 }
 
 class Player {
-    constructor(sceneWidth, sceneHeight, width, height, x, y, sprite) {
+    constructor(sceneWidth, sceneHeight, width, height, x, y, sprite, spriteX, spriteY) {
         this._sceneWidth = sceneWidth;
         this._sceneHeight = sceneHeight;
         this._width = width || 48;
@@ -40,8 +40,8 @@ class Player {
         this._x = x || 0;
         this._y = y || this._groundLevel;
         this._sprite = sprite || document.getElementById("playerSprite") || "";
-        this._spriteX = 0; // default top left - multiply by width/height for frame
-        this._spriteY = 0; // default top left - multiply by width/height for frame
+        this._spriteX = spriteX || 0; // default top left - multiply by width/height for frame
+        this._spriteY = spriteY || 0; // default top left - multiply by width/height for frame
         this._numXSprite = 4; // Being lazy
         this._numYSprite = 0; // Being lazy
         this._fps = 9;
@@ -63,12 +63,12 @@ class Player {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
         context.drawImage(this._sprite, this._spriteX * this._width, this._spriteY * this._height, this._width, this._height, this._x, this._y, this._width, this._height);
     }
-    update(input, platforms, deltaTime) {
+    update(input, platforms, deltaTime, bonus) {
 
         // horizontal input
         if (input.keys.indexOf('ArrowLeft') > -1) {
             this._deltaX = -3.5;
-            this._spriteY = 1;
+            this._spriteY = (bonus) ? 3 : 1;
             this._direction = false;
             if (this._frameTimer > this._frameInterval) {
                 this._spriteX = this._spriteX + 1 < this._numXSprite ? this._spriteX + 1 : 0;
@@ -78,7 +78,7 @@ class Player {
             }
         } else if (input.keys.indexOf('ArrowRight') > -1) {
             this._deltaX = 3.5;
-            this._spriteY = 0;
+            this._spriteY = (bonus) ? 2 : 0;
             this._direction = true;
             if (this._frameTimer > this._frameInterval) {
                 this._spriteX = this._spriteX + 1 < this._numXSprite ? this._spriteX + 1 : 0;
@@ -89,7 +89,11 @@ class Player {
         } else {
             this._deltaX = 0;
             this._spriteX = 1;
-            this._spriteY = (this._direction) ? 0 : 1;
+            if (bonus) {
+                this._spriteY = (this._direction) ? 2 : 3;
+            } else {
+                this._spriteY = (this._direction) ? 0 : 1;
+            }
         }
         // horizontal output
         this._x += this._deltaX;
@@ -145,13 +149,17 @@ class Player {
             this._y = this._upperBound;
             this._deltaY = 0;
             this._upperBound = -200;
-            platformCallback();
+            if (platformCallback !== null) platformCallback();
         }
 
-        if (this._y < this._lowerBound) {
+        if (bonus) {
+            this._spriteY = (this._direction) ? 2 : 3;
+        } else {
+            this._spriteY = (this._direction) ? 0 : 1;
+        }
+    if (this._y < this._lowerBound) {
             // falling
-            this._deltaY += this._gravity;
-            this._spriteY = (this._direction) ? 4 : 5;
+            this._deltaY += (bonus) ? this._gravity/2 : this._gravity;
             this._spriteX = 4;
             // Sprite control
         } else {
@@ -160,7 +168,6 @@ class Player {
             this._deltaY = 0;
             // Sprite control
             // this._spriteX = 1;
-            this._spriteY = (this._direction) ? 0 : 1;
             this._y = this._lowerBound;
         }
 

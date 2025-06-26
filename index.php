@@ -67,13 +67,21 @@
     <section id="intro">
         <!-- <h1>Matthew Roosa</h1> -->
     </section>
-    <section id="about">
+    <section id="about" data-current-scene="1">
         <div class="contain">
-            <h2><span>A</span><span>B</span><span class="special">O</span><span>U</span><span>T</span></h2>
+            <h2>
+                <span class="brick">A</span>
+                <span class="brick">B</span>
+                <span class="brick special">O</span>
+                <span class="brick">U</span>
+                <span class="brick">T</span>
+            </h2>
             <?php
-                $md = file_get_contents('data/about.md');
-                echo $Parsedown->text($md);
+            #    $md = file_get_contents('data/about.md');
+            #    echo $Parsedown->text($md);
             ?>
+            <p data-scene="1">I am a full-stack developer with over 20 years experience creating accessible, comprehensive, and scalable web experiences. My experience as a full-stack developer allows me to solve design challenges while creating straight-forward and maintainable solutions to best serve the needs of the client. I have developed and maintained small and large-scale websites for businesses, schools, and non-profits in the greater Philadelphia area, working with Comcast/Xfinity, AARP, Cheshire Law Group, and many more.</p>
+            <p data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
         </div>
         <div class="monitor">
             <img class="asset" id="cloud" data-type="sprite" src="images/about/cloud_sprite.png" alt="">

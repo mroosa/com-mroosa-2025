@@ -54,6 +54,52 @@ section {
     position: relative;
     overflow: hidden;
     padding: 28px 40px;
+    transition: background .25s;
+    
+    &:before {
+        content: "";
+        display: block;
+        background: 
+            url(../images/noise-low.png),
+            url(../images/about/stars.png),
+            radial-gradient(ellipse at top, #06204f 50%, #000a1a);
+        background-size: auto, cover, auto;
+        background-attachment: fixed, scroll, fixed;
+        background-position: center -100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events:none;
+        width: 100%;
+        height: 100%;
+        transition: opacity 3s, background-position 3s;
+        opacity: 0;
+    }
+    @keyframes changeScene {
+        0% {
+            transform: translate(0,0);
+        }
+        50% {
+            transform: translate(0,100vh);
+        }
+        100% {
+            transform: translate(0,0);
+        }
+    }
+    &.space {
+        h2, 
+        .shrub,
+        .monitor,
+        p,
+        h2 span {
+            animation: ease-in-out 6s changeScene forwards;
+        }
+
+        &:before {
+            opacity: 1;
+            background-position: center top;
+        }
+    }
     
     .contain {
         display: grid;
@@ -79,16 +125,22 @@ section {
             font-size: 20px;
             justify-content: center;
             align-items: center;
-            background:url(../images/about/tile-brick-2.png) center center, url(../images/noise-low.png) #9d5311;
             color: #fff;
-            border-left: 3px solid rgba(255, 255, 255, .5);
-            border-top: 3px solid rgba(255, 255, 255, .5);
-            border-right: 3px solid rgba(0, 0, 0, .5);
-            border-bottom: 3px solid rgba(0, 0, 0, .5);
             border-radius: 6px;
             position: relative;
             transition: .25s background-color, .25s color;
             cursor: default;
+            border: 3px dotted rgba(255, 255, 255, .5);
+
+            &.brick {
+                border-left: 3px solid rgba(255, 255, 255, .5);
+                border-top: 3px solid rgba(255, 255, 255, .5);
+                border-right: 3px solid rgba(0, 0, 0, .5);
+                border-bottom: 3px solid rgba(0, 0, 0, .5);
+                background:
+                    url(../images/about/tile-brick-2.png) center center,
+                    url(../images/noise-low.png) #9d5311;
+            }
 
             &.brick-hit {
                 animation: ease-in-out brickHit .25s;
@@ -134,48 +186,52 @@ section {
 
     p {
         z-index: 18;
-        padding: 25px;
-        border-radius: 16px;
-        box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.59);
         position: relative;
         overflow: hidden;
         margin: 0;
         font-family: "Share Tech CYR", "Brass Mono", monospace;
 
-        &:after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 19;
-            background: 
-                url(../images/about/screw-sm.png) 8px 8px no-repeat,
-                url(../images/about/screw-sm.png) calc(100% - 8px) 8px no-repeat,
-                url(../images/about/screw-sm.png) calc(100% - 8px) calc(100% - 8px) no-repeat,
-                url(../images/about/screw-sm.png) 8px calc(100% - 8px) no-repeat,
-                linear-gradient(#fff6, #fff0 15px, #fff0 calc(100% - 15px), #3336),
-                linear-gradient(90deg,#fff6, #fff0 15px, #fff0 calc(100% - 15px), #3336);
-            pointer-events: none;
+        &[data-scene="1"] {
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.59);
+
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 19;
+                background: 
+                    url(../images/about/screw-sm.png) 8px 8px no-repeat,
+                    url(../images/about/screw-sm.png) calc(100% - 8px) 8px no-repeat,
+                    url(../images/about/screw-sm.png) calc(100% - 8px) calc(100% - 8px) no-repeat,
+                    url(../images/about/screw-sm.png) 8px calc(100% - 8px) no-repeat,
+                    linear-gradient(#fff6, #fff0 15px, #fff0 calc(100% - 15px), #3336),
+                    linear-gradient(90deg,#fff6, #fff0 15px, #fff0 calc(100% - 15px), #3336);
+                pointer-events: none;
+            }
+    
+            &:nth-of-type(1) {
+                background: #ffe57d;
+                grid-column-start: 4;
+                grid-column-end: 9;
+                grid-row-start: 3;
+                grid-row-end: 8;
+            }
+    
+            &:nth-of-type(2) {
+                background: #48e5ff;
+                grid-column-start: 2;
+                grid-column-end: 8;
+                grid-row-start: 6;
+                grid-row-end: 8;
+            }
         }
 
-        &:nth-of-type(1) {
-            background: #ffe57d;
-            grid-column-start: 4;
-            grid-column-end: 9;
-            grid-row-start: 3;
-            grid-row-end: 8;
-        }
-
-        &:nth-of-type(2) {
-            background: #48e5ff;
-            grid-column-start: 2;
-            grid-column-end: 8;
-            grid-row-start: 6;
-            grid-row-end: 8;
-        }
     }
 
     .monitor {
@@ -187,16 +243,11 @@ section {
         height: 100%;
         overflow: hidden;
         pointer-events: none;
-        background: 
-            url(../images/about/level-background-fade-02.png) center 95% repeat-x,
-            url(../images/about/level-background-fade-04.png) center bottom repeat-x;
 
         canvas {
             position: relative;
             z-index: 50;
             image-rendering: pixelated;
-            // height: 100%;
-            // width: 100vw;
         }
     }
 
@@ -206,7 +257,6 @@ section {
 
     .shrub {
         display: block;
-        background: url(../images/about/shrubs.png) center bottom no-repeat;
         height: 237px;
         width: 295px;
         z-index: 21;
@@ -215,44 +265,11 @@ section {
         left: 5%;
 
         &:nth-of-type(2) {
-            background: url(../images/about/shrubs-2.png) center bottom no-repeat;
             height: 288px;
             width: 300px;
             left: calc(95% - 200px);
         }
     }
-
-    // .cloud {
-    //     display: block;
-    //     background: url(../images/about/cloud_sprite.png) top center no-repeat;
-    //     height: 62px;
-    //     width: 272px;
-    //     z-index: 12;
-    //     position: absolute;
-    //     top: 10%;
-    //     left: 50%;
-
-    //     &[data-type="1"] {
-    //         background-position: center 0;
-    //         animation: linear cloudTravel 480s;
-    //     }
-    //     &[data-type="2"] {
-    //         background-position: center -62px;
-    //         animation: linear cloudTravel 380s;
-    //     }
-    //     &[data-type="3"] {
-    //         background-position: center -134px;
-    //         animation: linear cloudTravel 540s;
-    //     }
-    //     &[data-type="4"] {
-    //         background-position: center -196px;
-    //         animation: linear cloudTravel 500s;
-    //     }
-    //     &[data-type="5"] {
-    //         background-position: center -258px;
-    //         animation: linear cloudTravel 480s;
-    //     }
-    // }
 
     #marty {
         display: block;
@@ -312,16 +329,46 @@ section {
             display: block;
             width: 100%;
             height: 26px;
-            background: url(../images/about/tile-ground-48.png);
             position: absolute;
             bottom: 0;
 
         }
+    }
 
+    // Scene changes
+    &[data-current-scene="1"] {
+        .tile.ground {
+            background: url(../images/about/tile-ground-48.png);
+        }
+        .shrub {
+            background: url(../images/about/shrubs.png) center bottom no-repeat;
 
-
-
-        
+            &:nth-of-type(2) {
+                background: url(../images/about/shrubs-2.png) center bottom no-repeat;
+            }
+        }
+        .monitor {
+            background: 
+                url(../images/about/level-background-fade-02.png) center 95% repeat-x,
+                url(../images/about/level-background-fade-04.png) center bottom repeat-x;
+        }
+    }
+    &[data-current-scene="2"] {
+        .tile.ground {
+            background: url(../images/about/tile-moon.png);
+        }
+        .shrub {
+            background: url(../images/about/LEGO-car.png) center bottom no-repeat;
+            &:nth-of-type(2) {
+                left: calc(95% - 300px);
+                background: url(../images/about/LEGO-space-dish.png) center bottom no-repeat;
+            }
+        }
+        .monitor {
+            background: 
+                url(../images/about/level-background-fade-06.png) center 95% repeat-x,
+                url(../images/about/level-background-fade-08.png) center bottom repeat-x;
+        }
     }
 }
 
