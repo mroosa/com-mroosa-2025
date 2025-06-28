@@ -65,7 +65,7 @@
 </header>
 <main>
     <section id="intro">
-        <!-- <h1>Matthew Roosa</h1> -->
+        <h1>Matthew Roosa</h1>
     </section>
     <section id="about" data-current-scene="1">
         <div class="contain">

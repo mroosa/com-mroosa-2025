@@ -49,7 +49,9 @@ class InputHandler {
         window.addEventListener('keydown', (e) => {
             // prevent reserved keys from firing off other actions
             if (Object.values(this._reservedKeys).indexOf(e.key) > -1) {
-                // Push to key arrow for later use
+                // Push to key array for later use
+                // TODO: Swap out actual keyboard value for matching reservedKeys key
+                //       to allow for abstract keyboard input (or rebinding)
                 if (this.noRepeat.indexOf(e.key) === -1 && this.keys.indexOf(e.key) === -1) {
                     this.keys.push(e.key);
                 }
@@ -157,6 +159,7 @@ class Player {
         let ceiling = this._skyLimit; // Temp reset to upper
         let floor = this._groundLevel; // Temp reset to lower
         let isPlatform = false; // Asume there is no platform
+        let onPermiablePlatform = false; // Assume ground/platform is solid
         let platformCallback = null;
         
         // Go through all platforms to determine eligibility
@@ -166,12 +169,16 @@ class Player {
                 // return true if player is between the x bounds of a platform
                 isPlatform = true;
                 // Check for solid platforms above the players head
-                if (p._permiable === true && this._y > p._y + p._height) {
+                if (p._notPermiable && this._y > p._y + p._height) {
                     // set the ceiling to the lowest solid platform above the players head
                     ceiling = (p._y + p._height > ceiling) ? p._y + p._height : ceiling;
                     if (p._callback !== null) {
                         platformCallback = () => {p._callback(p._source)};
                     }
+                }
+                // Find the platform player is standing on, set permiability
+                if (this._y + this._height === p._y) {
+                    onPermiablePlatform = p._notPermiable;
                 }
                 // Find the highest platform currently below the player
                 if (this._y + this._height <= p._y) {
@@ -195,7 +202,13 @@ class Player {
             }
         }
         if (input.keys.indexOf('ArrowDown') > -1 && this.isGrounded()) {
-            this._y -= 1;
+            // console.log(permiablePlatform);
+            if (this._y < this._groundLevel && !onPermiablePlatform) {
+                this._lowerBound = this._groundLevel;
+                // setTimeout(()=>{
+                //     permiablePlatform = true;
+                // }, 250);
+            }
         }
         // vertical output
         /// if the next deltaY value would put it inside/above a solid platform, limit it.
@@ -254,7 +267,7 @@ class Cloud extends Environment {
         this._image = image;
         this._spriteY = spriteY || 0;
         this._spriteX = 0; // First frame only
-        this._speed = randRange(25,45) / 1000;
+        this._speed = randRange(25,45) / 1000 || speed;
     }
     draw(context) {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
@@ -268,9 +281,9 @@ class Cloud extends Environment {
 }
 
 class Platform extends Environment {
-    constructor(sceneWidth, sceneHeight, width, height, x, y, permiable, source, callback) {
+    constructor(sceneWidth, sceneHeight, width, height, x, y, notPermiable, source, callback) {
         super(sceneWidth, sceneHeight, width, height, x, y);
-        this._permiable = permiable || false;
+        this._notPermiable = notPermiable || false;
         this._source = source || null;
         this._callback = callback || null;
     }

@@ -43,18 +43,21 @@ window.onload = (w) => {
     });
 
     // About background parallax
+    const intro = document.getElementById("intro");
     const monitor = document.querySelector(".monitor");
     let midGround = (window.innerWidth / 2);
     let backGround = (window.innerWidth / 2);
-    monitor.style.backgroundPosition = midGround + "px 95%, " + backGround + "px 100%";
+    monitor.style.backgroundPosition = `${midGround}px 95%, ${backGround}px 100%`;
+    intro.style.backgroundPosition = `center, top center, ${Math.floor(midGround * 2)}px center, ${Math.floor(backGround * 2)}px center, center`;
     let origX = 0;
     window.addEventListener("mousemove", (e) => {
         origX = e.clientX > origX ? 1: -1;
         midGround = (midGround - origX/3);
         backGround = (backGround - origX/9);
-        monitor.style.backgroundPosition = midGround + "px 95%, " + backGround + "px 100%";
+        monitor.style.backgroundPosition = `${midGround}px 95%, ${backGround}px 100%`;
+        intro.style.backgroundPosition = `center, ${Math.floor(backGround)}px center, ${Math.floor(midGround * 2) + 800}px top, ${Math.floor(backGround * 2)}px center, center`;
         origX = e.clientX;
-    });
+        });
 
 
     // Section offsets
@@ -127,7 +130,8 @@ window.onload = (w) => {
                     _platformAry.push(platform);
                 }
             }
-        })
+        });
+        // console.log(_platformAry);
 
         // Hand picked elements
         const aboutTitle = document.querySelectorAll("#about .contain h2 span");
@@ -294,10 +298,13 @@ async function postData(form) {
 //     console.log(e.key);
 // });
   
+let aboutHt = document.getElementById("intro").offsetHeight;
 function checkScroll() {
-  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.querySelector("header").classList.add("scroll");
-  } else {
-    document.querySelector("header").classList.remove("scroll");
-  }
+    let toTop = document.body.scrollTop || document.documentElement.scrollTop;
+    if (toTop > 50) {
+        document.querySelector("header").classList.add("scroll");
+    } else {
+        document.querySelector("header").classList.remove("scroll");
+    }
+    // document.querySelector("#intro h1").style.top = `${(aboutHt + toTop) / 2}px`;
 }

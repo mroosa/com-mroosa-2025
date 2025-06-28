@@ -10,14 +10,32 @@ section {
 /* --- Intro --- */
 
 #intro {
-    min-height: 50vh;
+    min-height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     // background: url(../images/bg.png) center center repeat;
     // background: url(../images/grid-trans.png) center center repeat, linear-gradient(0deg, $dkblue 0%, $ltblue 100%);
-    background: url(../images/noise-low.png), url(../images/grid-trans.png) top center, radial-gradient(ellipse at  top, $ltblue, #133976);
+    background: 
+        url(../images/noise-low.png),
+        url(../images/grid-trans.png) top center,
+        url(../images/about-bg-01.png) center,
+        url(../images/about-bg-02.png) center,
+        radial-gradient(ellipse at  top, $ltblue, #133976);
+        background-size: auto, auto, cover, cover, auto;
+    background-position: center, top center, center, center, center;
+    background-attachment: fixed;
     text-shadow: 0 0 5px rgba(255,255,255,.5);
+    box-shadow: inset 0 -20px 40px rgba(0,0,0,.25);
+
+    h1 {
+        position: fixed;
+        // top: 50%;
+        // transform: translate(0, -50%);
+        margin: 0;
+    }
+
 }
 
 /* ------------- */
@@ -501,6 +519,18 @@ section {
         }
     }
 
+    #hut {
+        position: absolute;
+        display: block;
+        opacity: 1;
+        background: #f90;
+        height: 30px;
+        width: 150px;
+        z-index: 100;
+        top: 85%;
+        left: calc(95% - 200px);
+    }
+
     
     .controls.visible {
         pointer-events: all;
@@ -884,12 +914,12 @@ section {
             overflow: hidden;
             display: block;
             height: 12px;
-            width: 30px;
+            width: 20px;
             border-radius: 4px;
             border: 2px solid #666666;
             background: #343434;
             cursor: pointer;
-            transition: background-color .25s, border-color .25s;
+            transition: background-color .25s, border-color .25s, width .25s;
 
             &:hover {
                 background: $orange;
@@ -898,6 +928,7 @@ section {
             &.active {
                 background: $orange;
                 border-color: $orange;
+                width: 30px;
             }
         }
     }
