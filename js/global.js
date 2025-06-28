@@ -10,7 +10,7 @@ const {siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearL
 const {filmGap} = Carousel;
 
 let bonus = false;
-let animateState = 'stopped';
+let isAnimating = false;
 let curScene = 1;
 
 window.onload = (w) => {
@@ -75,7 +75,12 @@ window.onload = (w) => {
     let ctx = canvas.getContext('2d');
 
     /// Player
-    const input = new Game.InputHandler();
+    const input = new Game.InputHandler({
+        left: 'ArrowLeft', 
+        right: 'ArrowRight', 
+        down: 'ArrowDown', 
+        jump: 'ArrowUp'
+    });
     const plyrHt = 64;
     const plyrWd = 48;
     const initX = canvas.width * .25; // 25%
@@ -114,9 +119,14 @@ window.onload = (w) => {
         // TODO: Look for "platform" class to auto add
         const htmlPlatforms = document.querySelectorAll("#about .platform");
         htmlPlatforms.forEach(e => {
-            const isSolid = (e.attributes['data-solid'] !== 'undefined') ? true : false;
-            const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, isSolid);
-            _platformAry.push(platform);
+            if (e.hasAttribute('data-scene')) {
+                const platformScenes = e.attributes['data-scene'].value.split(",");
+                if (e.hasAttribute('data-scene') && platformScenes.includes(curScene.toString())) {
+                    const isSolid = (e.hasAttribute('data-platform-solid') && e.attributes['data-platform-solid']) ? true : false;
+                    const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, isSolid, e);
+                    _platformAry.push(platform);
+                }
+            }
         })
 
         // Hand picked elements
@@ -126,11 +136,11 @@ window.onload = (w) => {
             const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, true, e, (e) => {hitBlock(e)});
             _platformAry.push(platform);
         })
-        const aboutParagraphs = document.querySelectorAll("#about .contain p");
-        aboutParagraphs.forEach(e => {
-            const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop);
-            _platformAry.push(platform);
-        })
+        // const aboutParagraphs = document.querySelectorAll("#about .contain p");
+        // aboutParagraphs.forEach(e => {
+        //     const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop);
+        //     _platformAry.push(platform);
+        // })
 
         return _platformAry;
     }
@@ -160,23 +170,39 @@ window.onload = (w) => {
         marty.draw(ctx);
         marty.update(input, platformAry, deltaTime, bonus);
         
-        if (animateState === 'playing') {
+        if (isAnimating === true) {
             animationID = requestAnimationFrame(animateScene);
         }
     }
 
-    document.getElementById("about").addEventListener('click', (e) => {
-        if (animateState !== 'playing') {
-            animateState = 'playing';
+    function toggleAnimation(force) {
+        if (!isAnimating) {
+            isAnimating = true;
             animateScene();
+        } else {
+            isAnimating = false;
         }
-    })
+    }
+
     // initial setup
+    function init() {
+        document.getElementById("about").removeEventListener('click', init);
+        document.querySelector(".popup.controls").classList.add('visible');
+        let timeoutID = setTimeout( () => {
+            toggleAnimation();
+            document.querySelector('.popup.controls').classList.remove('visible');
+        }, 3000);
+        document.querySelector(".popup.controls").addEventListener('click', () => {
+            clearInterval(timeoutID);
+            toggleAnimation();
+        });
+    }
+    document.getElementById("about").addEventListener('click', init);
     animateScene(0);
 
     // Canvas extends on resize
     function resizeCanvas() {
-        // animateState = 'stopped';
+        // isAnimating = 'stopped';
         canvas.width = canvasParent.offsetWidth;
         canvas.height = canvasParent.offsetHeight - groundHt;
         cancelAnimationFrame(animationID);
@@ -206,6 +232,12 @@ function hitBlock(b) {
 
         // only count hits for "special" blocks
         if (b.classList.contains("special")) {
+            const star = document.createElement('span');
+            b.append(star);
+            star.classList.add('star');
+            setTimeout(() => {
+                star.remove();
+            }, 1000);
             if (blockHits == maxHits) {
                 b.classList.add("spent");
                 setTimeout(() => {
@@ -228,6 +260,7 @@ function ee() {
         document.getElementById("about").setAttribute('data-current-scene', curScene);
         document.querySelector("#about h2 span.special").classList.remove('special');
         document.querySelectorAll('#about p[data-scene="1"]').forEach((e)=>{e.style.opacity = 0;});
+        document.querySelectorAll('#about p[data-scene="2"]').forEach((e)=>{e.style.opacity = 1;});
     }, 3000);
 }
 
@@ -256,6 +289,10 @@ async function postData(form) {
     }
 
 }
+
+// window.addEventListener('keydown', e => {
+//     console.log(e.key);
+// });
   
 function checkScroll() {
   if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

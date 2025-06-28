@@ -2,19 +2,58 @@ import { randRange } from "./utilities.js";
 
 let debug = false;
 
+class Popup {
+    constructor(parent, contents, classes, width, height) {
+        if (typeof(parent) === 'object') {
+            this._parent = parent;
+        } else if (typeof(parent) === 'string') {
+            this._parent = document.querySelector(parent);
+        } else {
+            this._parent = document.body;
+        }
+        this._contents = contents;
+        this._classes = classes || [];
+        this._width = width || "";
+        this._height = height || "";
+
+        const popupContainer = document.createElement('div');
+        popupContainer.classList.add('popupContainer', 'help');
+
+        const popup = document.createElement('div');
+        this._classes.unshift('popup');
+        this._classes.forEach(c => {
+            popup.classList.add(c);
+        })
+        popup.addEventListener('click', e=> {
+            this.close(popup);
+        });
+        popup.append(this._contents);
+        popupContainer.append(popup);
+        this._parent.append(popupContainer);
+        
+    }
+    close(popup) {
+        // TODO non harcoded CSS method
+        if (popup.classList.contains('visible')) {
+            popup.classList.remove('visible');
+        }
+    }
+}
+
 class InputHandler {
-    constructor() {
+    constructor(reservedKeys) {
+        // Abstract the keymapping to allow for possible changes to buttons
+        this._reservedKeys = reservedKeys;
         this.keys = [];
         this.noRepeat = [];
         window.addEventListener('keydown', (e) => {
-            if ( ( e.key === 'a'
-                || e.key === 'ArrowRight'
-                || e.key === 'ArrowLeft'
-                || e.key === 'ArrowDown' )
-                && this.noRepeat.indexOf(e.key) === -1
-                && this.keys.indexOf(e.key) === -1
-            ) {
-                this.keys.push(e.key);
+            // prevent reserved keys from firing off other actions
+            if (Object.values(this._reservedKeys).indexOf(e.key) > -1) {
+                // Push to key arrow for later use
+                if (this.noRepeat.indexOf(e.key) === -1 && this.keys.indexOf(e.key) === -1) {
+                    this.keys.push(e.key);
+                }
+                e.preventDefault();
             }
         });
         window.addEventListener('keyup', (e) => {
@@ -26,6 +65,20 @@ class InputHandler {
                 this.noRepeat.splice(this.noRepeat.indexOf(e.key),1);
             }
         });
+
+        const keyMap = document.createElement('div');
+        let info = "<h3>Controls</h3><ul>";
+        for (let [purpose, key] of Object.entries(this._reservedKeys)) {
+            info += `<li><h4>${purpose.toUpperCase()}</h4><span class="key--${key}" title="${key}"></span></li>`;
+        }
+        info += "</ul>";
+        keyMap.innerHTML = info;
+        // TODO: Remove hard coding, pass parent
+        new Popup('#about', keyMap, ['controls']);
+
+    }
+
+    showKeyMap() {
     }
 }
 
@@ -132,14 +185,17 @@ class Player {
         } else {
             this._lowerBound = this._groundLevel;
         }
-        if (input.keys.indexOf('a') > -1 && this.isGrounded()) {
+        if (input.keys.indexOf('ArrowUp') > -1 && this.isGrounded()) {
             // Prevent jupming from repeating without a new key press
-            if (input.noRepeat.indexOf('a') === -1){
+            if (input.noRepeat.indexOf('ArrowUp') === -1){
                 if (this._y > this._upperBound) {
                     this._deltaY -= 15;
                 }
-                input.noRepeat.push('a');
+                input.noRepeat.push('ArrowUp');
             }
+        }
+        if (input.keys.indexOf('ArrowDown') > -1 && this.isGrounded()) {
+            this._y -= 1;
         }
         // vertical output
         /// if the next deltaY value would put it inside/above a solid platform, limit it.

@@ -80,8 +80,9 @@
             #    $md = file_get_contents('data/about.md');
             #    echo $Parsedown->text($md);
             ?>
-            <p data-scene="1">I am a full-stack developer with over 20 years experience creating accessible, comprehensive, and scalable web experiences. My experience as a full-stack developer allows me to solve design challenges while creating straight-forward and maintainable solutions to best serve the needs of the client. I have developed and maintained small and large-scale websites for businesses, schools, and non-profits in the greater Philadelphia area, working with Comcast/Xfinity, AARP, Cheshire Law Group, and many more.</p>
-            <p data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
+            <p class="platform" data-scene="1">I am a full-stack developer with over 20 years experience creating accessible, comprehensive, and scalable web experiences. My experience as a full-stack developer allows me to solve design challenges while creating straight-forward and maintainable solutions to best serve the needs of the client. I have developed and maintained small and large-scale websites for businesses, schools, and non-profits in the greater Philadelphia area, working with Comcast/Xfinity, AARP, Cheshire Law Group, and many more.</p>
+            <p class="platform" data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
+            <p class="platform eegg" data-scene="2">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
         </div>
         <div class="monitor">
             <img class="asset" id="cloud" data-type="sprite" src="images/about/cloud_sprite.png" alt="">
@@ -103,7 +104,7 @@
                 $count = 0;
 
                 foreach($proj_data->projects as $project):
-                    if(!isset($project->hide) || $project->hide !== true):
+                    if(!isset($project -> hide) || $project -> hide !== true):
                         $count++;
                         $projNum = ($count < 10) ? sprintf("%'.02d",$count): $count;
                         $checked = ($count===1) ? " checked": "";
