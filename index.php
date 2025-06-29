@@ -33,6 +33,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="files/mroosa-resume-202505.pdf" target="_blank">Resume</a></li>
             <li class="spacer"></li>
             <li class="social"><a id="icon-linkedin" target="_blank" href="https://www.linkedin.com/in/matthewroosa/">
                 <svg width="24" height="24" viewBox="0 0 24 24">
@@ -66,6 +67,7 @@
 <main>
     <section id="intro">
         <h1>Matthew Roosa</h1>
+        <p>Full-Stack Developer</p>
     </section>
     <section id="about" data-current-scene="1">
         <div class="contain">
@@ -82,7 +84,7 @@
             ?>
             <p class="platform" data-scene="1">I am a full-stack developer with over 20 years experience creating accessible, comprehensive, and scalable web experiences. My experience as a full-stack developer allows me to solve design challenges while creating straight-forward and maintainable solutions to best serve the needs of the client. I have developed and maintained small and large-scale websites for businesses, schools, and non-profits in the greater Philadelphia area, working with Comcast/Xfinity, AARP, Cheshire Law Group, and many more.</p>
             <p class="platform" data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
-            <p class="platform eegg" data-scene="2">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
+            <p class="platform eegg" data-scene="2">I also enjoy including Easter Eggs in fun projects, but who doesn't?</p>
         </div>
         <div class="monitor">
             <img class="asset" id="cloud" data-type="sprite" src="images/about/cloud_sprite.png" alt="">

@@ -257,10 +257,12 @@ section img {
 #intro {
   min-height: 400px;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   justify-content: center;
   align-items: center;
   position: relative;
-  background: url(../images/noise-low.png), url(../images/grid-trans.png) top center, url(../images/about-bg-01.png) center, url(../images/about-bg-02.png) center, radial-gradient(ellipse at top, #2976f3, #133976);
+  background: url(../images/noise-low.png), url(../images/grid-trans.png) top center, url(../images/about-bg-01-alt.png) center, url(../images/about-bg-02.png) center, radial-gradient(ellipse at top, #2976f3, #133976);
   background-size: auto, auto, cover, cover, auto;
   background-position: center, top center, center, center, center;
   background-attachment: fixed;
@@ -268,8 +270,22 @@ section img {
   box-shadow: inset 0 -20px 40px rgba(0, 0, 0, 0.25);
 }
 #intro h1 {
-  position: fixed;
   margin: 0;
+  line-height: 1;
+  font-size: 88px;
+  font-size: 72px;
+  font-size: 4vw;
+  font-size: clamp(41px, 4vw, 72px);
+}
+#intro p {
+  margin: 0;
+  line-height: 1;
+  font-family: "Brass Mono";
+  font-size: 50px;
+  font-size: 41px;
+  font-size: 2.28vw;
+  font-size: clamp(23.5px, 2.28vw, 41px);
+  text-transform: uppercase;
 }
 
 /* ------------- */
@@ -687,6 +703,9 @@ section img {
 
 /* ------------- */
 /* --- Work ---- */
+#work {
+  padding: 100px 0;
+}
 #work:before, #work:after {
   content: "";
   position: absolute;

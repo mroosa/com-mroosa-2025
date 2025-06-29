@@ -48,14 +48,14 @@ window.onload = (w) => {
     let midGround = (window.innerWidth / 2);
     let backGround = (window.innerWidth / 2);
     monitor.style.backgroundPosition = `${midGround}px 95%, ${backGround}px 100%`;
-    intro.style.backgroundPosition = `center, top center, ${Math.floor(midGround * 2)}px center, ${Math.floor(backGround * 2)}px center, center`;
+    intro.style.backgroundPosition = `center, ${Math.floor(backGround)}px center, ${Math.floor(midGround * 2) + 300}px top, ${Math.floor(backGround * 2)}px center, center`;
     let origX = 0;
     window.addEventListener("mousemove", (e) => {
         origX = e.clientX > origX ? 1: -1;
         midGround = (midGround - origX/3);
         backGround = (backGround - origX/9);
         monitor.style.backgroundPosition = `${midGround}px 95%, ${backGround}px 100%`;
-        intro.style.backgroundPosition = `center, ${Math.floor(backGround)}px center, ${Math.floor(midGround * 2) + 800}px top, ${Math.floor(backGround * 2)}px center, center`;
+        intro.style.backgroundPosition = `center, ${Math.floor(backGround)}px center, ${Math.floor(midGround * 2) + 300}px top, ${Math.floor(backGround * 2)}px center, center`;
         origX = e.clientX;
         });
 
