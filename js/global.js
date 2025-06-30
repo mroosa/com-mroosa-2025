@@ -195,7 +195,7 @@ window.onload = (w) => {
         let timeoutID = setTimeout( () => {
             toggleAnimation();
             document.querySelector('.popup.controls').classList.remove('visible');
-        }, 3000);
+        }, 2500);
         document.querySelector(".popup.controls").addEventListener('click', () => {
             clearInterval(timeoutID);
             toggleAnimation();

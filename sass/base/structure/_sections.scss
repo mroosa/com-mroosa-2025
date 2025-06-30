@@ -22,7 +22,7 @@ section {
     background: 
         url(../images/noise-low.png),
         url(../images/grid-trans.png) top center,
-        url(../images/about-bg-01-alt.png) center,
+        url(../images/about-bg-01.png) center,
         url(../images/about-bg-02.png) center,
         radial-gradient(ellipse at  top, $ltblue, #133976);
         background-size: auto, auto, cover, cover, auto;
@@ -559,8 +559,8 @@ section {
 /* ------------- */
 /* --- Work ---- */
 #work{
-
     padding: 100px 0;
+
     &:before,
     &:after {
         content: "";
@@ -959,6 +959,7 @@ section {
 
         $grip-height: 50px;
         $grip-width: 10px;
+        border-radius: 10px;
             
         .grip {
             position: absolute;

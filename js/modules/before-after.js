@@ -4,6 +4,7 @@ function dragElement(thisObj, thisContainer) {
     let curXPos = 0,
         newXPos = 0;
     const containerBounds = thisContainer.getBoundingClientRect(),
+        onion = thisContainer.querySelector(".onion"),
         padAry = getComputedStyle(thisContainer).getPropertyValue('padding').split(" ");
 
     let leftPad, rightPad;
@@ -30,7 +31,7 @@ function dragElement(thisObj, thisContainer) {
     function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
-        console.log(containerBounds.left, containerBounds.right);
+        // console.log(containerBounds.left, containerBounds.right);
         // get the mouse cursor position at startup:
         curXPos = e.clientX;
         document.onmouseup = closeDragElement;
@@ -40,20 +41,24 @@ function dragElement(thisObj, thisContainer) {
 
     function elementDrag(e) {
         e = e || window.event;
-        e.preventDefault();
         // calculate the new cursor position:
         newXPos = curXPos - e.clientX;
+        e.preventDefault();
+        let beforeXPos = 0;
         if (curXPos > leftBound && curXPos < rightBound) {
-            thisObj.style.left = (thisObj.offsetLeft - newXPos) + "px";
-            thisContainer.querySelector('.before').style.right = Math.floor(containerBounds.right - leftPad - curXPos)+"px";
-            thisContainer.querySelector('.before').style.right = Math.floor(containerBounds.right - leftPad - curXPos)+"px";
+            thisObj.style.left = `${thisObj.offsetLeft - newXPos}px`;
+            beforeXPos = `${Math.floor(containerBounds.right - leftPad - curXPos)}px`;
+            // console.log(curXPos);
         } else {
             if (curXPos <= leftBound) {
-                curXPos = leftBound + 2;
+                beforeXPos = `${onion.offsetWidth - 4}px`;
+                thisObj.style.left = 0;
             } else if (curXPos >= rightBound) {
-                curXPos = rightBound - 2;
+                beforeXPos = 0; 
+                thisObj.style.left = `${onion.offsetWidth - 4}px`;
             }
         }
+        thisContainer.querySelector('.before').style.right = beforeXPos;
         curXPos = e.clientX;
         // set the element's new position:
     }
@@ -70,7 +75,7 @@ function dragElement(thisObj, thisContainer) {
         // }
         document.onmouseup = null;
         document.onmousemove = null;
-        console.log(thisObj.style.left);
+        // console.log(thisObj.style.left);
     }
 }
 

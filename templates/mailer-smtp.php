@@ -6,6 +6,10 @@ use PHPMailer\PHPMailer\SMTP;
 
 require '../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../../');
+$dotenv->load();
+
+
 $message = (isset($_POST['message'])) ? $_POST['message']: "";
 $sender = (isset($_POST['email'])) ? $_POST['email']: "";
 $name = (isset($_POST['name'])) ? $_POST['name']: "";
@@ -24,7 +28,7 @@ $mail->isSMTP();
 //SMTP::DEBUG_OFF = off (for production use)
 //SMTP::DEBUG_CLIENT = client messages
 //SMTP::DEBUG_SERVER = client and server messages
-$mail->SMTPDebug = SMTP::DEBUG_OFF;
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
 //Set the hostname of the mail server
 $mail->Host = 'smtp.gmail.com';
@@ -46,20 +50,20 @@ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->SMTPAuth = true;
 
 //Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = 'sendspamhere1010@gmail.com';
+$mail->Username = $_ENV['GUSER'];
 
 //Password to use for SMTP authentication
-$mail->Password = file_get_contents('../data/cred/creds.txt');
+$mail->Password = $_ENV['GKEY'];
 
 //Set who the message is to be sent from
 //Note that with gmail you can only use your account address (same as `Username`)
 //or predefined aliases that you have configured within your account.
 //Do not use user-submitted addresses in here
-$mail->setFrom('sendspamhere1010@gmail.com', 'Matthew Roosa');
+$mail->setFrom($_ENV['GUSER'], 'Matthew Roosa');
 
 //Set an alternative reply-to address
 //This is a good place to put user-submitted addresses
-$mail->addReplyTo('sendspamhere1010@gmail.com', 'Matthew Roosa');
+$mail->addReplyTo($_ENV['GUSER'], 'Matthew Roosa');
 
 //Set who the message is to be sent to
 $mail->addAddress('nasman98@yahoo.com', 'Matthew Roosa');

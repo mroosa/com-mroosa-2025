@@ -232,11 +232,9 @@ class Player {
             this._spriteX = 4;
             // Sprite control
         } else {
-            // console.log('else');
             // stop falling
             this._deltaY = 0;
             // Sprite control
-            // this._spriteX = 1;
             this._y = this._lowerBound;
         }
 

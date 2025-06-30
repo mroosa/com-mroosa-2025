@@ -65,10 +65,10 @@
             for($i = 0; $i < $num_imgs; $i++):
         ?>
         <?php if ($i === $num_imgs - 1): ?>
-            <img class="after" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
+            <img class="after no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
             <?php else: ?>
             <div class="before">
-                <img<?php echo $shadow ?> src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
+                <img class="no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
             </div>
             <?php endif; ?>
         

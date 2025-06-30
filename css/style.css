@@ -262,7 +262,7 @@ section img {
   justify-content: center;
   align-items: center;
   position: relative;
-  background: url(../images/noise-low.png), url(../images/grid-trans.png) top center, url(../images/about-bg-01-alt.png) center, url(../images/about-bg-02.png) center, radial-gradient(ellipse at top, #2976f3, #133976);
+  background: url(../images/noise-low.png), url(../images/grid-trans.png) top center, url(../images/about-bg-01.png) center, url(../images/about-bg-02.png) center, radial-gradient(ellipse at top, #2976f3, #133976);
   background-size: auto, auto, cover, cover, auto;
   background-position: center, top center, center, center, center;
   background-attachment: fixed;
@@ -1035,6 +1035,7 @@ section img {
 .compare .onion {
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
 }
 .compare .onion .grip {
   position: absolute;
