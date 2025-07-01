@@ -1,6 +1,3 @@
-<?php
-    echo __DIR__;
-?>
 <?php require_once './vendor/parsedown/Parsedown.php'; #1.8 dev to fix PHP issues ?>
 <?php $Parsedown = new Parsedown(); ?>
 

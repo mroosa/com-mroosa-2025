@@ -6,9 +6,8 @@ use PHPMailer\PHPMailer\SMTP;
 
 require '../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../../etc/');
 $dotenv->load();
-
 
 $message = (isset($_POST['message'])) ? $_POST['message']: "";
 $sender = (isset($_POST['email'])) ? $_POST['email']: "";
@@ -28,7 +27,7 @@ $mail->isSMTP();
 //SMTP::DEBUG_OFF = off (for production use)
 //SMTP::DEBUG_CLIENT = client messages
 //SMTP::DEBUG_SERVER = client and server messages
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+$mail->SMTPDebug = SMTP::DEBUG_OFF;
 
 //Set the hostname of the mail server
 $mail->Host = 'smtp.gmail.com';
