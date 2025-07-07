@@ -29,7 +29,8 @@
 </div>
 <header>
     <nav>
-        <ul role="presentation">
+        <button id="menu-toggle"><em>Toggle Menu</em><span></span><span></span><span></span></button>
+        <ul id="menu" role="presentation">
             <li><a href="#about">About</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#contact">Contact</a></li>

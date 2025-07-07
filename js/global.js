@@ -195,19 +195,24 @@ window.onload = (w) => {
 
     // initial setup
     function init() {
-        document.getElementById("about").removeEventListener('click', init);
-        document.querySelector(".popup.controls").classList.add('visible');
-        let timeoutID = setTimeout( () => {
-            toggleAnimation();
-            document.querySelector('.popup.controls').classList.remove('visible');
-        }, 2500);
-        document.querySelector(".popup.controls").addEventListener('click', () => {
-            clearInterval(timeoutID);
-            toggleAnimation();
-        });
+        if (window.innerWidth > 960) {
+
+            document.getElementById("about").removeEventListener('click', init);
+            document.querySelector(".popup.controls").classList.add('visible');
+            let timeoutID = setTimeout( () => {
+                toggleAnimation();
+                document.querySelector('.popup.controls').classList.remove('visible');
+            }, 2500);
+            document.querySelector(".popup.controls").addEventListener('click', () => {
+                clearInterval(timeoutID);
+                toggleAnimation();
+            });
+        }
     }
     document.getElementById("about").addEventListener('click', init);
-    animateScene(0);
+    if (window.innerWidth > 960) {
+        animateScene(0);
+    }
 
     // Canvas extends on resize
     function resizeCanvas() {
@@ -221,11 +226,41 @@ window.onload = (w) => {
         marty.resetBounds(canvas.width, canvas.height);
 
             // redraw
-        animateScene(0);
+        if (window.innerWidth > 960) {
+            animateScene(0);
+        } else {
+            isAnimating = false;
+        }
     }
     window.addEventListener("resize", resizeCanvas);
     
 
+    function toggleMenu(force) {
+        if (force === 'open') {
+            document.body.classList.add('menu-open');
+        } else if (force === 'close') {
+            document.body.classList.remove('menu-open');
+        } else {
+            document.body.classList.toggle('menu-open');
+        }
+
+    }
+    function setMobileMenu() {
+        document.querySelectorAll("nav li:not(.spacer)").forEach(l => {
+            l.addEventListener('click', closeMenu);
+        });
+    }
+    function closeMenu() {
+        toggleMenu('close');
+        document.querySelectorAll("nav li:not(.spacer)").forEach(l => {
+            l.removeEventListener('click', closeMenu);
+        });
+    }
+    document.getElementById("menu-toggle").addEventListener('click', e => {
+        toggleMenu();
+        setMobileMenu();
+        e.preventDefault();
+    });
 }
 
 // "block" interactions

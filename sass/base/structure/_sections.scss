@@ -104,6 +104,8 @@ section {
     padding: 28px 40px;
     transition: background .25s;
     min-height: 600px;
+    display: flex;
+    align-content: flex-end;
     
     &:before {
         content: "";
@@ -151,17 +153,15 @@ section {
     }
     
     .contain {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: repeat(7, 1fr);
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
     }
 
     h2 {
         text-shadow: 2px 2px 1px rgba(0,0,0,.25);
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 4;
-        grid-row-end: 4;
+        grid-area: 1 / 1 / span 1 / span 4;
         margin: 0;
         align-self: center;
         display: flex;
@@ -295,28 +295,21 @@ section {
     
             &:nth-of-type(1) {
                 background: #ffe57d;
-                grid-column-start: 4;
-                grid-column-end: 9;
-                grid-row-start: 3;
-                grid-row-end: 8;
+                grid-area: 3 / 2 / span 5 / span 7;
             }
     
             &:nth-of-type(2) {
                 background: #48e5ff;
-                grid-column-start: 2;
-                grid-column-end: 8;
-                grid-row-start: 6;
-                grid-row-end: 8;
+                grid-area: 6 / 1 / span 2 / span 7;
             }
         }
 
         &.eegg {
             color: #b2d0ff;
-            grid-column-start: 4;
-            grid-column-end: 8;
-            grid-row-start: 3;
-            grid-row-end: 6;
             align-self: center;
+            position: absolute;
+            top: 45%;
+            text-align: center;
         }
 
     }
@@ -416,16 +409,21 @@ section {
         display: block;
         height: 237px;
         width: 295px;
-        z-index: 21;
+        z-index: 17;
         position: absolute;
         bottom: 23px;
-        left: 5%;
+        left: 0;
+        background-position: left bottom;
+        background-repeat: no-repeat;
+        background-size: 75%;
 
         &:nth-of-type(2) {
             height: 288px;
             width: 300px;
             left: calc(95% - 200px);
+            background-position: right bottom;
         }
+
     }
 
     #marty {
@@ -498,10 +496,10 @@ section {
             background: url(../images/about/tile-ground-48.png);
         }
         .shrub {
-            background: url(../images/about/shrubs.png) center bottom no-repeat;
+            background-image: url(../images/about/shrubs.png);
 
             &:nth-of-type(2) {
-                background: url(../images/about/shrubs-2.png) center bottom no-repeat;
+                background-image: url(../images/about/shrubs-2.png);
             }
         }
         .monitor {
@@ -512,13 +510,13 @@ section {
     }
     &[data-current-scene="2"] {
         .tile.ground {
-            background: url(../images/about/tile-moon.png);
+            background-image: url(../images/about/tile-moon.png);
         }
         .shrub {
-            background: url(../images/about/LEGO-car.png) center bottom no-repeat;
+            background-image: url(../images/about/LEGO-car.png);
             &:nth-of-type(2) {
                 left: calc(95% - 300px);
-                background: url(../images/about/LEGO-space-dish.png) center bottom no-repeat;
+                background-image: url(../images/about/LEGO-space-dish.png);
             }
         }
         .monitor {
@@ -554,12 +552,57 @@ section {
         opacity: 1;
         cursor: pointer;
     }
+
+    @media screen and (min-width: $sml) {
+        .contain {
+            display: grid;
+            gap: 0;
+            grid-template: 50px 50px repeat(5, 1fr) / repeat(8, 1fr);
+        }
+
+        .shrub {
+            background-size: bottom center;
+        }
+
+        p.eegg {
+            position: static;
+            top: auto;
+            grid-area: 3 / 1 / span 2 / span 8;
+        }
+    }
+    @media screen and (min-width: $mid) {
+        .contain {
+            grid-template: repeat(7, 1fr) / repeat(8, 1fr);
+        }
+        h2 {
+            justify-content: flex-start;
+            grid-area: 4 / 1 / span 1 / span 3;
+        }
+        p[data-scene="1"]:nth-of-type(1) {
+            grid-area: 3 / 4 / span 5 / span 5;
+        }
+
+        p[data-scene="1"]:nth-of-type(2) {
+            grid-area: 6 / 2 / span 2 / span 6;
+        }
+        p.eegg {
+            grid-area: 3 / 4 / span 3 / span 4;
+        }
+        .shrub {
+            left: 5%;
+            background-size: 100%;
+        }
+    }
+
 }
 
 /* ------------- */
 /* --- Work ---- */
 #work{
-    padding: 100px 0;
+    padding: 50px 0;
+    @media screen and (min-width:$tbl) {
+        padding: 100px 0;
+    }
 
     &:before,
     &:after {
@@ -578,13 +621,18 @@ section {
         bottom: 0;
     }
     .contain {
-        padding: 1px 20px 50px 50px;
+        padding: 1px 10px 20px;
 
-        @media screen and (min-width: $lrg) {
+        @media screen and (min-width: $tbl) {
+            padding: 1px 20px 50px 50px;
             max-width: $mid;            
-
             .project-nfo {
                 margin-left: 40px;
+            }
+        }
+        @media screen and (min-width: $mid) {
+
+            .project-nfo {
                 gap: 10px;
                 grid-template-columns: 3fr 1fr 10px;
                 grid-template-areas: 
@@ -596,9 +644,6 @@ section {
                     padding: 0;
                 }
                 
-            }
-            .project input:checked + label .proj-ttl {
-                transform-origin: -18px 0;
             }
         }
         @media screen and (min-width: $max) {
@@ -620,9 +665,11 @@ section {
 }
 .project {
     position: relative;
-    overflow: hidden;
-    margin-left: -40px;
     min-height: 50px;
+    @media screen and (min-width: $mid) {
+        overflow: hidden;
+        margin-left: -40px;
+    }
 
     input {
         display: block;
@@ -630,8 +677,11 @@ section {
         opacity: 0;
     }
     label {
-        position: absolute;
         cursor: pointer;
+
+        @media screen and (min-width: $mid) {
+            position: absolute;
+        }
 
         h3 {
             font-family: $font-mono;
@@ -641,7 +691,11 @@ section {
             margin: .6em 0;
             display: inline-block;
             // border-bottom: 2px solid transparent;
-            line-height: 1.1;
+
+            line-height: 1.4;
+            @media screen and (min-width: $tbl) {
+                line-height: 1.1;
+            }
 
             .proj-num,
             .dots {
@@ -725,7 +779,9 @@ section {
         opacity: 0;
         padding-top: 0;
         transition: all 1s;
-        margin-left: 30px;
+        @media screen and (min-width: $mid) {
+            margin-left: 30px;
+        }
 
         display: grid;
         grid-template-areas:
@@ -752,19 +808,28 @@ section {
 
     input:checked + label {
 
-        /* 90 degree title */
-        position: absolute;
-        bottom: 0;
-        pointer-events: none;
-
         .proj-ttl {
-            transform: rotate(-90deg) translate(-20px);
-            display: inline-block;
-            transform-origin: -14px 0;
             color: #ffffff;
-
             .ttl {
                 border-bottom-color: transparent;
+            }
+        }
+
+        /* 90 degree title */
+        @media screen and (min-width: $tbl) {
+            position: absolute;
+            bottom: 0;
+            pointer-events: none;
+
+            .proj-ttl {
+                transform: rotate(-90deg) translate(-20px);
+                display: inline-block;
+                transform-origin: -14px 0;
+            }
+        }
+        @media screen and (min-width: $lrg) {
+            .proj-ttl {
+                transform-origin: -18px 0;
             }
         }
     }
@@ -774,8 +839,11 @@ section {
         background: radial-gradient(ellipse at top left, #0005, #0000 50%);
         // background: radial-gradient(ellipse at top left, #0005, #0000 25%, #0000 75%, #fff2);
         background: radial-gradient(ellipse at top left, rgba(36, 36, 36, 0.92), rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 75%, rgb(75, 75, 75));
-        border-radius: 20px;
-        margin-top: 50px;
+        margin: 0 -10px 40px;
+        @media screen and (min-width: $tbl) {
+            border-radius: 20px;
+            margin-top: 50px;
+        }
     }
 
 
@@ -901,9 +969,13 @@ section {
         transition: left .25s;
 
         .frame {
-            padding: 20px;
             width: 100%;
             flex: 1 0 auto;
+
+            padding: 10px;
+            @media screen and (min-width: $tbl) {
+                padding: 20px;
+            }
 
             iframe:not(.no-shadow),
             img:not(.no-shadow) {
@@ -1029,9 +1101,10 @@ section {
 
 /* Conact */
 #contact {
-    padding: 30px 30px 100px 30px;
     background: url(../images/y.png) center center no-repeat;
     background-size: cover;
+    padding: 50px 0 100px 0;
+
 
     &:before {
         content: "";
@@ -1102,15 +1175,20 @@ section {
     }
 
     #contact-form {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 20px;
 
-        button,
-        input[type="submit"],
-        .input-wrap:has(textarea) {
-            grid-column-start: 1;
-            grid-column-end: 3;
+        @media screen and (min-width: $tbl) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            button,
+            input[type="submit"],
+            .input-wrap:has(textarea) {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
         }
     }
 
@@ -1118,6 +1196,7 @@ section {
     input[type="submit"] {
         justify-self: center;
         padding: 10px 40px;
+        flex: 0 1 auto;
 
         border: 2px solid rgba(255,255,255, .5);
         background: #34343433;

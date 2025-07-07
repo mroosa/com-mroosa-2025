@@ -1,12 +1,101 @@
+// Button instead of checkbox to close on link click (blur)
+button#menu-toggle,
+label[for="menu-toggle"] {
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    line-height: 1;
+    padding: 2px 8px 10px;
+    background: $blue;
+    display: block;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgba($blue, 0.8);
+    overflow: hidden;
+    width: 44px;
+    height: 44px;
+    z-index: 101;
+    border: none;
+    transition: .25s box-shadow, .25s background-color;
+
+    em {
+        display: block;
+        overflow: hidden;
+        text-indent: -9999px;
+    }
+
+    span {
+        content: "";
+        position: absolute;
+        left: 20%;
+        width: 60%;
+        height: 3px;
+        background: #ade0ff;
+        transition: .25s transform, .25s opacity;
+        transform-origin: center;
+        opacity: 1;
+
+        &:nth-of-type(1) {
+            top: 31%;
+        }
+        &:nth-of-type(2) {
+            top: 50%;
+        }
+        &:nth-of-type(3) {
+            top: 69%;
+        }
+    }
+
+}
+input#menu-toggle {
+    opacity: 0;
+
+    &:checked + #menu {
+        display: flex;
+    }
+}
+.menu-open {
+    // pointer-events: none;
+    // overflow: hidden;
+
+    button#menu-toggle {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+        background-color: transparent;
+        
+        span {
+            &:nth-of-type(1) {
+                transform: rotate(45deg) translate(0, 12px);
+            }
+            &:nth-of-type(2) {
+                opacity: 0;
+            }
+            &:nth-of-type(3) {
+                transform: rotate(-45deg) translate(0, -12px);
+            }
+
+        }
+    }
+    button#menu-toggle + #menu {
+            display: flex;
+    }
+    nav {
+        pointer-events: all;
+    }
+}
+
 nav {
     height: $size__header;
     // background: url(../images/noise-low.png), url(../images/bg-thin.png) center center, #292929;
 
-    ul {
+    #menu {
+        display: flex;
         list-style: none;
         margin: 0;
         padding: 0;
-        display: flex;
         justify-content: center;
         align-items: center;
         height: $size__header;
@@ -63,5 +152,60 @@ nav {
             }
         }
         
+    }
+}
+
+// Not a mobile-first menu 
+@media screen and (max-width: $tbl - 1) {
+    nav {
+        pointer-events: all;
+
+        #menu {
+            display: none;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background: rgba($blue, 0.8);
+            flex-wrap: wrap;
+            align-content: center;
+            padding: 0 20px;
+
+            li {
+                height: auto;
+            }
+
+            li:not(.social) {
+                width: 100%;
+                font-size: 44px;
+                padding: 20px 0;
+            }
+
+            li.spacer {
+                // border-top: 2px solid #fff4;
+                padding: 20px;
+                margin-top: 80px;
+            }
+            
+            li.social {
+                a {
+                    padding: 0 3vw;
+                }
+                svg {
+                    height: 10vw;
+                    width: 10vw;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $tbl) {
+    #menu-toggle {
+        display: none;
     }
 }
