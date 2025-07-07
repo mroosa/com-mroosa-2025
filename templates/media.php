@@ -1,10 +1,10 @@
 <?php $num_media = count($project->media); ?>
 
-<div class="media carousel" data-slides="<?php echo $num_media ?>"><div class="film">
+<div class="media carousel" data-slides="<?php echo $num_media ?>" role="presentation"><div class="film" role="presentation">
 <?php
     foreach($project->media as $media):
 ?>
-    <div class="frame <?php echo $media->type ?>">
+    <div class="frame <?php echo $media->type ?>" role="presentation">
 
 
 
@@ -19,7 +19,7 @@
             $video_opt = $loop . $controls . $autoplay;
             $frame = isset($media->frame) ? $media->frame : "default";
         ?>        
-        <div class="<?php echo $frame ?>">
+        <div class="<?php echo $frame ?>" role="presentation">
             <video width="<?php echo $vid_wd ?>" height="<?php echo $vid_ht ?>"<?php echo $video_opt ?>><source src="projects/<?php echo $project->dir ?>/<?php echo $media->file ?>"></video>
         </div>
 
@@ -45,7 +45,7 @@
 
             $shadow = (isset($media->shadow) && $media->shadow === false) ? " class=\"no-shadow\"": "";
         ?>
-        <div style="padding:<?php echo $vimeo_ratio ?>% 0 0 0;position:relative;"><iframe<?php echo $shadow ?> src="https://player.vimeo.com/video/<?php echo $vimeo_url ?>&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="<?php echo $media->alt ?>"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+        <div style="padding:<?php echo $vimeo_ratio ?>% 0 0 0;position:relative;" role="presentation"><iframe<?php echo $shadow ?> src="https://player.vimeo.com/video/<?php echo $vimeo_url ?>&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="<?php echo $media->alt ?>"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
 
 
@@ -58,17 +58,17 @@
 
 
     <?php elseif ($media->type == 'compare'): ?>
-        <div class="onion">
-            <button class="grip"></button>
+        <div class="onion" role="presentation">
+            <button class="grip" role="presentation"></button>
         <?php 
             $num_imgs = count($media->files);
             for($i = 0; $i < $num_imgs; $i++):
         ?>
         <?php if ($i === $num_imgs - 1): ?>
-            <img class="after no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
+            <img class="after no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>" aria-label="After Image">
             <?php else: ?>
             <div class="before">
-                <img class="no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>">
+                <img class="no-shadow" src="projects/<?php echo $project->dir ?>/<?php echo $media->files[$i]->src ?>" alt="<?php echo $media->files[$i]->alt ?>" aria-label="Before Image">
             </div>
             <?php endif; ?>
         

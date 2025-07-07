@@ -29,7 +29,7 @@
 </div>
 <header>
     <nav>
-        <ul>
+        <ul role="presentation">
             <li><a href="#about">About</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -70,13 +70,13 @@
         <p>Full-Stack Developer</p>
     </section>
     <section id="about" data-current-scene="1">
-        <div class="contain">
+        <div class="contain" role="presentation">
             <h2>
-                <span class="brick">A</span>
-                <span class="brick">B</span>
-                <span class="brick special">O</span>
-                <span class="brick">U</span>
-                <span class="brick">T</span>
+                <span class="brick" role="presentation">A</span>
+                <span class="brick" role="presentation">B</span>
+                <span class="brick special" role="presentation">O</span>
+                <span class="brick" role="presentation">U</span>
+                <span class="brick" role="presentation">T</span>
             </h2>
             <?php
             #    $md = file_get_contents('data/about.md');
@@ -86,20 +86,20 @@
             <p class="platform" data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
             <p class="platform eegg" data-scene="2">I also enjoy including Easter Eggs in fun projects, but who doesn't?</p>
         </div>
-        <div class="monitor">
+        <div class="monitor" role="presentation">
             <img class="asset" id="cloud" data-type="sprite" src="images/about/cloud_sprite.png" alt="">
             <img class="asset" id="playerSprite" data-type="sprite" src="images/about/LEGO-sprite.png" alt="">
-            <div class="shrub"></div>
-            <div class="shrub"></div>
-            <div class="tile curtain left"></div>
-            <div class="tile curtain right"></div>
-            <div class="tile ground"></div>
+            <div class="shrub" role="presentation"></div>
+            <div class="shrub" role="presentation"></div>
+            <div class="tile curtain left" role="presentation"></div>
+            <div class="tile curtain right" role="presentation"></div>
+            <div class="tile ground" role="presentation"></div>
         </div>
     </section>
     <section id="work" class="alt">
-        <div class="contain">
+        <div class="contain" role="presentation">
             <h2>Work</h2>
-            <div class="projects">
+            <div class="projects" role="presentation">
 
             <?php
                 $proj_data = json_decode(file_get_contents('data/projects.json'));
@@ -111,9 +111,9 @@
                         $projNum = ($count < 10) ? sprintf("%'.02d",$count): $count;
                         $checked = ($count===1) ? " checked": "";
             ?>
-                <div class="project">
+                <div class="project" role="presentation">
                     <input type="radio" id="<?php echo $project->id ?>" name="project"<?php echo $checked ?>><label for="<?php echo $project->id ?>"><h3><span class="proj-num"><?php echo $projNum ?></span><span class="proj-ttl"><span class="dots">::</span><span class="ttl"><?php echo $project->title ?></span></span></a></h3></label>
-                    <div class="project-nfo">
+                    <div class="project-nfo" role="presentation">
 
 
                         <?php
@@ -129,7 +129,7 @@
                             endif;
                         ?>
                         <?php if (isset($project->description)): ?>
-                        <div class="project-dsc"><p><?php echo $project->description ?></p></div>
+                        <div class="project-dsc" aria-label="Project Description"><p><?php echo $project->description ?></p></div>
                         <?php endif; ?>
 
                                 
@@ -143,12 +143,12 @@
         </div>
     </section>
     <section id="contact">
-        <div class="contain">
+        <div class="contain" role="presentation">
             <h2>Want to get in touch?</h2>
             <p>Fill out the form below, and I'll get back to you as soon as I can.</p>
             <form id="contact-form" method="post" action="">
                 <div class="input-wrap">
-                    <label for="fname">Name</label>
+                    <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="input-wrap">

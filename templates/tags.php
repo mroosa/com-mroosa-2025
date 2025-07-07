@@ -1,4 +1,4 @@
-<ul class="tags">
+<ul class="tags" role="presentation" aria-label="Tags">
     <?php
         # basic tags
         if (isset($project->tags) && count($project->tags) > 0):
@@ -13,7 +13,7 @@
         if (isset($project->awards) && count($project->awards) > 0):
             foreach ($project->awards as $award):
     ?>
-    <li class="award"><?php echo $award ?></li>
+    <li class="award" role="presentation" aira-label="Awards"><?php echo $award ?></li>
     <?php
             endforeach;
         endif;

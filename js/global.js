@@ -158,6 +158,7 @@ window.onload = (w) => {
     // Animate
     let animationID = 0;
     let lastTime = 0;
+
     function animateScene(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
@@ -180,11 +181,15 @@ window.onload = (w) => {
     }
 
     function toggleAnimation(force) {
-        if (!isAnimating) {
-            isAnimating = true;
-            animateScene();
-        } else {
+        if (force === 'pause') {
             isAnimating = false;
+        } else {
+            if (!isAnimating) {
+                isAnimating = true;
+                animateScene();
+            } else {
+                isAnimating = false;
+            }
         }
     }
 
@@ -209,19 +214,21 @@ window.onload = (w) => {
         // isAnimating = 'stopped';
         canvas.width = canvasParent.offsetWidth;
         canvas.height = canvasParent.offsetHeight - groundHt;
+        // console.log(canvas.height);
         cancelAnimationFrame(animationID);
         platformAry = getPlatforms();
         ctx = canvas.getContext('2d');
+        marty.resetBounds(canvas.width, canvas.height);
 
             // redraw
-        // animateScene();
+        animateScene(0);
     }
     window.addEventListener("resize", resizeCanvas);
     
 
 }
 
-// "blocl" interactions
+// "block" interactions
 const maxHits = 6; // for "special" blocks
 function hitBlock(b) {
     // get num of hits on block
@@ -269,6 +276,10 @@ function ee() {
 }
 
 
+
+
+
+// Contact Form
 async function postData(form) {
     let emailContents = new FormData();
     form.querySelectorAll('input, textarea').forEach((i) => {
@@ -294,11 +305,7 @@ async function postData(form) {
 
 }
 
-// window.addEventListener('keydown', e => {
-//     console.log(e.key);
-// });
-  
-let aboutHt = document.getElementById("intro").offsetHeight;
+// let aboutHt = document.getElementById("intro").offsetHeight;
 function checkScroll() {
     let toTop = document.body.scrollTop || document.documentElement.scrollTop;
     if (toTop > 50) {

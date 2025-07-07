@@ -246,6 +246,25 @@ class Player {
     onPlatform() {
         // if (this._y)
     }
+    resetBounds(width, height) {
+        // reset scene parameters
+        this._sceneWidth = width;
+        this._sceneHeight = height;
+
+        // prevent player from moving offscreen horizontally
+        if (this._x > this._sceneWidth - this._width) this._x = width - this._width;
+        if (this._x < 0) this._x = 0;
+
+        // prevent player from falling below ground
+        if (this._y + this._height > this._sceneHeight) {
+            this._y = this._sceneHeight - this._height;
+        }
+        // reset ground
+        this._groundLevel = this._sceneHeight - this._height;
+        this._lowerBound = this._groundLevel;
+
+        
+    }
 }
 
 class Environment {
