@@ -1100,6 +1100,14 @@ section {
 }
 
 /* Conact */
+@keyframes throbber {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 #contact {
     background: url(../images/y.png) center center no-repeat;
     background-size: cover;
@@ -1155,7 +1163,7 @@ section {
         padding: 10px 15px 0 15px;
     }
 
-    .input-wrap {
+    .input-wrap:not(.submit-wrap) {
         display: flex;
         flex-direction: column;
         border: 2px solid rgba(255,255,255, .5);
@@ -1164,13 +1172,17 @@ section {
         backdrop-filter: blur(8px);
         border-radius: 10px;
         box-shadow: -4px 4px 10px rgba(0,0,0,.25);
-        transition: backdrop-filter .25s, background-color .25s, border-color .25s;
+        transition: backdrop-filter .25s, background-color .25s, border-color .25s, opacity .25s;
 
         &.focused {
             background: #20202099;
             border-color: $orange;
             -webkit-backdrop-filter: blur(15px);
             backdrop-filter: blur(15px);
+        }
+
+        &.disabled {
+            opacity: .5;
         }
     }
 
@@ -1184,10 +1196,49 @@ section {
             grid-template-columns: 1fr 1fr;
 
             button,
-            input[type="submit"],
+            .submit-wrap,
             .input-wrap:has(textarea) {
                 grid-column-start: 1;
                 grid-column-end: 3;
+            }
+        }
+    }
+
+    .submit-wrap {
+        display: flex;
+        position: relative;
+        justify-content: center;
+
+        .throbber {
+            position: absolute;
+            display: block;
+            width: 24px;
+            height: 24px;
+            border: 4px solid rgba($dkorange, .25);
+            border-top: 4px solid $dkorange;
+            border-bottom: 4px solid $dkorange;
+            border-radius: 50%;
+            z-index: 3;
+            top: calc(50% - 12px);
+            pointer-events: none;
+            margin-left: 40px;
+            opacity: 0;
+            transition: margin .25s .25s, opacity .25s .25s;
+
+        }
+
+        &.waiting {
+            .throbber {
+                margin-left: 0;
+                opacity: 1;
+                // less performance impact 
+                animation: throbber linear 1s infinite;
+            }
+            button,
+            input[type="submit"] {
+                background: rgba(255,255,255, .15);
+                text-indent: -40px;
+                color: #fff0;
             }
         }
     }
@@ -1196,7 +1247,7 @@ section {
     input[type="submit"] {
         justify-self: center;
         padding: 10px 40px;
-        flex: 0 1 auto;
+        flex: 1 0 auto;
 
         border: 2px solid rgba(255,255,255, .5);
         background: #34343433;
@@ -1208,7 +1259,7 @@ section {
         font-family: $font-condensed;
         text-transform: uppercase;
         font-size: clamp(16px, 2vw, 18px);
-        transition: color .25s, border .25s, background .25s;
+        transition: color .25s, border .25s, background .25s, text-indent .25s;
         cursor: pointer;
 
         &:hover {

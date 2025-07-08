@@ -68,13 +68,13 @@ input#menu-toggle {
         
         span {
             &:nth-of-type(1) {
-                transform: rotate(45deg) translate(0, 12px);
+                transform: rotate(45deg) translate(6px, 6px);
             }
             &:nth-of-type(2) {
                 opacity: 0;
             }
             &:nth-of-type(3) {
-                transform: rotate(-45deg) translate(0, -12px);
+                transform: rotate(-45deg) translate(6px, -6px);
             }
 
         }
@@ -205,7 +205,7 @@ nav {
 }
 
 @media screen and (min-width: $tbl) {
-    #menu-toggle {
+    button#menu-toggle {
         display: none;
     }
 }

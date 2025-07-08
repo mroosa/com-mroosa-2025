@@ -324,12 +324,32 @@ async function postData(form) {
     const url = "templates/mailer-smtp.php";
     // const url = "templates/test.php";
     try {
+        form.querySelectorAll('.input-wrap:not(.submit-wrap)').forEach((i) => {
+            i.classList.add('disabled');
+            i.querySelector('input, textarea').setAttribute('disabled','disabled');
+        });
+        document.querySelector('.submit-wrap').classList.add('waiting');
+        
         const response = await fetch(url, {
             method: "POST",
             body: emailContents
         });
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
+        } else {
+            // debug using timeout
+            // setTimeout(()=> {
+                document.querySelector('.submit-wrap').classList.remove('waiting');
+                document.getElementById('submit').value = "Thank You!";
+            // }, 2000);
+
+            setTimeout(()=> {
+                form.querySelectorAll('.input-wrap').forEach((i) => {
+                    i.classList.remove('disabled');
+                    i.querySelector('input, textarea').removeAttribute('disabled');
+                });
+                document.getElementById('submit').value = "Submit";
+            },3000);
         }
   
         // alert('yay');

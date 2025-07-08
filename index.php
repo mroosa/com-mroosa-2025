@@ -160,7 +160,10 @@
                     <label for="lname">Message</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
-                <input type="submit" value="Submit" id="submit" name="submit">
+                <div class="input-wrap submit-wrap">
+                    <span class="throbber"></span>
+                    <input type="submit" value="Submit" id="submit" name="submit">
+                </div>
             </form>
         </div>
     </section>
