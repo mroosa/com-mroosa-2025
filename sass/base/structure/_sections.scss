@@ -1247,7 +1247,8 @@ section {
     input[type="submit"] {
         justify-self: center;
         padding: 10px 40px;
-        flex: 1 0 auto;
+        flex: 0 1 auto;
+        min-width: 200px;
 
         border: 2px solid rgba(255,255,255, .5);
         background: #34343433;
