@@ -49,7 +49,7 @@
             "id": "aarp-staying-sharp",
             "dir": "aarpss",
             "title": "AARP Staying Sharp",
-            "description": "A series of Brain-centric animations focused on increasing awaresness and engagement among AARP members, displayed across multiple media platforms.",
+            "description": "A series of brain-centric animations focused on increasing awareness and engagement among AARP members, displayed across multiple media platforms.",
             "tags": [
                 "Animation", 
                 "Ads",
@@ -89,7 +89,7 @@
             "id": "comcast-business-brand-hub",
             "dir": "comcast-brand-hub",
             "title": "Comcast Business Brand Hub",
-            "description": "A WordPress-based website, made use of the Kadence plugins to provide a seemless editing experience for developers and editors, integrated with Comcast's own SSO.",
+            "description": "A WordPress-based website using Kadence plugins to provide a seemless editing experience for developers and editors, integrated with Comcast's own SSO.",
             "tags": [
                 "CMS",
                 "WordPress",
@@ -116,7 +116,7 @@
             "id": "cmi-promex",
             "dir": "cmi-promex",
             "title": "CMI Promex",
-            "description": "A custom WordPress theme for a manufacturing company serving the needs for rail industry, using Kadence blocks for easily editable content for editors.",
+            "description": "A custom WordPress theme for a manufacturing company serving the needs of the rail industry, using Kadence blocks for easily editable content for editors.",
             "tags": [
                 "CMS",
                 "WordPress",
@@ -169,7 +169,7 @@
             "id": "xfinity-communities-handbook",
             "dir": "xfchandbook",
             "title": "Xfinity Communities Handbook",
-            "description": "A highly informative website built in WordPress with Kadence for Xfinity's multi-dwelling unit customers.",
+            "description": "A highly informative website built in WordPress with Kadence for Xfinity reps to inform owners and property managers of multi-dwelling unit customers.",
             "tags": [
                 "CMS",
                 "WordPress", 
@@ -195,7 +195,7 @@
             "id": "aarp--esi",
             "dir": "esi",
             "title": "AARP — Enterprise, Strategy & Innovation",
-            "description": "Custom Drupal-based website was created for AARP to help driven employees to innovate and produce solutions for the benefit of AARP 50-plus members.",
+            "description": "Custom Drupal-based website created to help educate and inspire AARP employees to innovate and produce solutions that benefit their 50+ aged members.",
             "tags": [
                 "CMS",
                 "Drupal 7.x", 
@@ -252,7 +252,7 @@
             "id": "imagine-bc",
             "dir": "ibc",
             "title": "Imagine BC",
-            "description": "Fully customized WordPress website as part of a branding packge for a blockchain staartup focused on empowering its users.",
+            "description": "Fully customized WordPress website as part of a branding packge for a blockchain startup focused on empowering its users.",
             "tags": [
                 "CMS",
                 "WordPress", 
@@ -296,7 +296,7 @@
             "id": "hi-res-podcast",
             "dir": "hires",
             "title": "HiRes Podcast",
-            "description": "Small-scale custom HTML website designed by Ryan Starr for his popular Philadelphia-based creatives podcast.",
+            "description": "Small-scale, custom HTML website designed by Ryan Starr for his popular Philadelphia-based podcast.",
             "tags": [
                 "HTML", 
                 "Javascript"

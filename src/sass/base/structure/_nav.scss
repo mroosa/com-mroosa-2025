@@ -157,7 +157,7 @@ nav {
 }
 
 // Not a mobile-first menu 
-@media screen and (max-width: $tbl - 1) {
+@media screen and (max-width: ($tbl - 1)) {
     nav {
         pointer-events: all;
 

@@ -1,19 +1,19 @@
 
 const carouselEl = (<HTMLElement>document.querySelector(".carousel .film"));
 const film = (<HTMLElement>document.querySelector(".carousel .film"));
-const filmGap: string = getComputedStyle(film).getPropertyValue("gap");
+const filmGap: number = parseInt(getComputedStyle(film).getPropertyValue("column-gap"), 10);
 
 const setup = (id?: string): void => {
     if (id) {
         document.getElementById(id);
     } else {
-        document.querySelectorAll(".carousel").forEach((k)=> {
+        document.querySelectorAll<HTMLElement>(".carousel").forEach((k)=> {
             // Count the slides
             const numSlides: number = Number(k.getAttribute('data-slides'));
             // Only add dots to multi-slide media
             if (numSlides > 1) {
                 // Create the dot nav and append to ontainer
-                const dots = document.createElement('ul');
+                const dots: HTMLElement = document.createElement('ul');
                 dots.classList.add('carousel-nav');
                 k.appendChild(dots);
 
@@ -30,13 +30,16 @@ const setup = (id?: string): void => {
                     dot.onclick = (d): void => {
                         const actDot: number = Number(k.querySelector('li.active')?.getAttribute('data-id'));
                         const thisDot: number = Number((<HTMLElement>d.target).getAttribute('data-id'));
+                        
                         if (actDot !== thisDot) {
                             // Swap active dot
                             k.querySelector('li.active')?.classList.toggle('active');
                             (<HTMLElement>d.target).classList.toggle('active');
                             // Set offset, force "0" for first dot.
                             const percentage: number = (thisDot != 0) ? -thisDot * 100 : 0;
-                            const newFrame: string = `calc(${percentage}% - (${thisDot} * ${filmGap}))`;
+                            const newOffset: number = thisDot * filmGap;
+                            const newFrame: string = `calc(${percentage}% - ${newOffset}px)`;
+                            console.log(filmGap, newFrame);
                             (<HTMLElement>k.querySelector('.film')).style.left = (thisDot != 0) ? newFrame : '0';
                         }
                     }

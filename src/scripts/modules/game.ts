@@ -47,7 +47,11 @@ class Popup {
 }
 
 class InputHandler {
-    constructor(reservedKeys) {
+    private _reservedKeys: object[];
+    private keys: string[];
+    private noRepeat: string[];
+
+    constructor(reservedKeys: object) {
         // Abstract the keymapping to allow for possible changes to buttons
         this._reservedKeys = reservedKeys;
         this.keys = [];
@@ -91,7 +95,30 @@ class InputHandler {
 }
 
 class Player {
-    constructor(sceneWidth, sceneHeight, width, height, x, y, sprite, spriteX?, spriteY?) {
+    private _sceneWidth: number;
+    private _sceneHeight: number;
+    private _width: number;
+    private _height: number;
+    private _groundLevel: number;
+    private _skyLimit: number;
+    private _x: number;
+    private _y: number;
+    private _sprite: string;
+    private _spriteX: number;
+    private _spriteY: number;
+    private _numXSprite: number;
+    private _numYSprite: number;
+    private _fps: number;
+    private _frameTimer: number;
+    private _frameInterval: number;
+    private _deltaX: number;
+    private _deltaY: number;
+    private _gravity: number;
+    private _lowerBound: number;
+    private _upperBound: number;
+    private _direction: number;
+    
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, sprite: HTMLElement | string | null, spriteX?: number, spriteY?: number) {
         this._sceneWidth = sceneWidth;
         this._sceneHeight = sceneHeight;
         this._width = width || 48;
@@ -116,7 +143,7 @@ class Player {
         this._direction = true; // Right facing
     }
 
-    draw(context) {
+    draw(context: CanvasRenderingContext2D) {
         if (debug) {
             context.strokeStyle = "#f90";
             context.strokeRect(this._x, this._y, this._width, this._height);
@@ -252,7 +279,7 @@ class Player {
     onPlatform() {
         // if (this._y)
     }
-    resetBounds(width, height) {
+    resetBounds(width: number, height: number) {
         // reset scene parameters
         this._sceneWidth = width;
         this._sceneHeight = height;
@@ -274,7 +301,14 @@ class Player {
 }
 
 class Environment {
-    constructor(sceneWidth, sceneHeight, width, height, x, y) {
+    private _sceneWidth: number;
+    private _sceneHeight: number;
+    private _width: number;
+    private _height: number;
+    private _x: number;
+    private _y: number;
+    
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number) {
         this._sceneWidth = sceneWidth;
         this._sceneHeight = sceneHeight;
         this._width = width;
@@ -285,14 +319,19 @@ class Environment {
 }
 
 class Cloud extends Environment {
-    constructor(sceneWidth, sceneHeight, width, height, x, y, image, spriteY?, speed?) {
+    private _image: HTMLElement;
+    private _spriteY: number;
+    private _spriteX: number;
+    private _speed: number;
+
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, image: HTMLElement, spriteY?: number, speed?: number) {
         super(sceneWidth, sceneHeight, width, height, x, y);
         this._image = image;
         this._spriteY = spriteY || 0;
         this._spriteX = 0; // First frame only
         this._speed = randRange(25,45) / 1000 || speed;
     }
-    draw(context) {
+    draw(context: CanvasRenderingContext2D) {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
         context.drawImage(this._image, this._width * this._spriteX, this._height * this._spriteY, this._width, this._height, this._x, this._y, this._width, this._height);
     }
@@ -304,7 +343,11 @@ class Cloud extends Environment {
 }
 
 class Platform extends Environment {
-    constructor(sceneWidth, sceneHeight, width, height, x, y, notPermiable, source?, callback?) {
+    private _notPermiable: number;
+    private _source: number;
+    private _callback: number;
+    
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, notPermiable: boolean, source?, callback?) {
         super(sceneWidth, sceneHeight, width, height, x, y);
         this._notPermiable = notPermiable || false;
         this._source = source || null;

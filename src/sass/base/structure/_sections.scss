@@ -1045,6 +1045,8 @@ section {
             padding: 0;
             box-shadow: 0 0 20px 2px rgba(0,0,0,.25);
             transition: .25s background-color;
+            border-left: 1px solid #666c;
+            border-right: 1px solid #666c;
 
 
             &:before {
@@ -1053,7 +1055,7 @@ section {
                 height: $grip-height;
                 width: $grip-width;
                 position: absolute;
-                left: calc(($grip-width / -2) + 2px);
+                left: calc(($grip-width / -2) + 1px);
                 background: #ccc;
                 border-radius: 2px;
                 top: calc(50% - ($grip-height / 2));

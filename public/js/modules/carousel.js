@@ -1,6 +1,6 @@
 const carouselEl = document.querySelector(".carousel .film");
 const film = document.querySelector(".carousel .film");
-const filmGap = getComputedStyle(film).getPropertyValue("gap");
+const filmGap = parseInt(getComputedStyle(film).getPropertyValue("column-gap"), 10);
 const setup = (id) => {
     if (id) {
         document.getElementById(id);
@@ -35,7 +35,9 @@ const setup = (id) => {
                             d.target.classList.toggle('active');
                             // Set offset, force "0" for first dot.
                             const percentage = (thisDot != 0) ? -thisDot * 100 : 0;
-                            const newFrame = `calc(${percentage}% - (${thisDot} * ${filmGap}))`;
+                            const newOffset = thisDot * filmGap;
+                            const newFrame = `calc(${percentage}% - ${newOffset}px)`;
+                            console.log(filmGap, newFrame);
                             k.querySelector('.film').style.left = (thisDot != 0) ? newFrame : '0';
                         }
                     };
