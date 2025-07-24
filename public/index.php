@@ -137,8 +137,8 @@
     </section>
     <section id="contact">
         <div class="contain" role="presentation">
-            <h2>Want to get in touch?</h2>
-            <p>Fill out the form below, and I'll get back to you as soon as I can.</p>
+            <h2>Let's Conenct</h2>
+            <p>Fill out the form below, and I'll be in touch.</p>
             <form id="contact-form" method="post" action="">
                 <div class="input-wrap">
                     <label for="name">Name</label>
