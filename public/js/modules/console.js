@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /* Console functionality */
 const siteConsole = document.getElementById("console");
 const siteDisplay = document.getElementById("display");
@@ -62,4 +60,4 @@ const Console = {
     clearLine,
     clearDisplay
 };
-exports.default = Console;
+export default Console;

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,25 +7,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const utilities_1 = require("./modules/utilities");
-const console_1 = __importDefault(require("./modules/console"));
-const carousel_1 = __importDefault(require("./modules/carousel"));
-const before_after_1 = __importDefault(require("./modules/before-after"));
-// import Label from "./modules/label";
-const game_1 = __importDefault(require("./modules/game"));
-const { siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearLine, clearDisplay } = console_1.default;
-const { filmGap } = carousel_1.default;
+import { randRange, shuffleArray } from "./modules/utilities.js";
+import Console from "./modules/console.js";
+import Carousel from "./modules/carousel.js";
+import Comparison from "./modules/before-after.js";
+import Game from "./modules/game.js";
+const { siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearLine, clearDisplay } = Console;
+const { filmGap } = Carousel;
 let bonus = false;
 let isAnimating = false;
 let curScene = 1;
 window.onload = (w) => {
     var _a, _b;
-    carousel_1.default.setup();
-    before_after_1.default.setup();
+    Carousel.setup();
+    Comparison.setup();
     // Label.setup();
     document.querySelectorAll(".input-wrap").forEach((wrap) => {
         wrap.querySelector("input, textarea").onfocus = () => {
@@ -81,7 +75,7 @@ window.onload = (w) => {
     canvas.height = canvasParent.offsetHeight - groundHt;
     let ctx = canvas.getContext('2d');
     /// Player
-    const input = new game_1.default.InputHandler({
+    const input = new Game.InputHandler({
         left: 'ArrowLeft',
         right: 'ArrowRight',
         down: 'ArrowDown',
@@ -91,7 +85,7 @@ window.onload = (w) => {
     const plyrWd = 48;
     const initX = canvas.width * .25; // 25%
     const initY = canvas.height - plyrHt - 100; // Start with playing jumping to engage interactivity
-    const marty = new game_1.default.Player(canvas.width, canvas.height, plyrWd, plyrHt, initX, initY, null, 4);
+    const marty = new Game.Player(canvas.width, canvas.height, plyrWd, plyrHt, initX, initY, null, 4);
     /// Environment
     //// Clouds
     let cloudPosAry = ["8%,23%", "13%,13%", "24%,10%", "49%,8%", "68%,15%", "95%,10%"];
@@ -99,15 +93,15 @@ window.onload = (w) => {
     const numClouds = cloudPosAry.length;
     if (numClouds > 0) {
         for (let i = 0; i < numClouds; i++) {
-            (0, utilities_1.shuffleArray)(cloudPosAry);
+            shuffleArray(cloudPosAry);
             const lastPos = cloudPosAry.pop() || '';
             const pos = lastPos.split(",");
             // const pos: string[] = cloudPosAry.pop().split(",");
             const x = (parseInt(pos[0], 10) / 100) * canvas.width;
             const y = (parseInt(pos[1], 10) / 100) * canvas.height;
-            const cloudSprite = (0, utilities_1.randRange)(1, 5);
+            const cloudSprite = randRange(1, 5);
             const cloudImage = document.getElementById("cloud");
-            const cloud = new game_1.default.Cloud(canvas.width, canvas.height, 120, 60, x, y, cloudImage, cloudSprite);
+            const cloud = new Game.Cloud(canvas.width, canvas.height, 120, 60, x, y, cloudImage, cloudSprite);
             cloudAry.push(cloud);
         }
     }
@@ -131,7 +125,7 @@ window.onload = (w) => {
                     const platformScenes = dataScene.split(",");
                     if (platformScenes.includes(curScene.toString())) {
                         const isSolid = (el.hasAttribute('data-platform-solid') && el.getAttribute('data-platform-solid')) ? true : false;
-                        const platform = new game_1.default.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, isSolid, el);
+                        const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, isSolid, el);
                         _platformAry.push(platform);
                     }
                 }
@@ -142,7 +136,7 @@ window.onload = (w) => {
         const aboutTitle = document.querySelectorAll("#about .contain h2 span");
         aboutTitle.forEach(el => {
             // console.log(e);
-            const platform = new game_1.default.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, (el) => { hitBlock(el); });
+            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, (el) => { hitBlock(el); });
             _platformAry.push(platform);
         });
         // const aboutParagraphs = document.querySelectorAll("#about .contain p");

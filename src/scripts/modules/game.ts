@@ -3,7 +3,13 @@ import { randRange } from "./utilities.js";
 let debug = false;
 
 class Popup {
-    constructor(parent, contents, classes, width, height) {
+    private _parent: string | null;
+    private _classes: string[];
+    private _contents: HTMLElement;
+    private _width: string | undefined;
+    private _height: string | undefined;
+
+    constructor(parent: string | null, contents: HTMLElement, classes: string[], width: string | undefined, height: string | undefined) {
         if (typeof(parent) === 'object') {
             this._parent = parent;
         } else if (typeof(parent) === 'string') {
@@ -16,10 +22,10 @@ class Popup {
         this._width = width || "";
         this._height = height || "";
 
-        const popupContainer = document.createElement('div');
+        const popupContainer: HTMLDivElement = document.createElement('div');
         popupContainer.classList.add('popupContainer', 'help');
 
-        const popup = document.createElement('div');
+        const popup: HTMLDivElement = document.createElement('div');
         this._classes.unshift('popup');
         this._classes.forEach(c => {
             popup.classList.add(c);
@@ -32,7 +38,7 @@ class Popup {
         this._parent.append(popupContainer);
         
     }
-    close(popup) {
+    close(popup: HTMLElement) {
         // TODO non harcoded CSS method
         if (popup.classList.contains('visible')) {
             popup.classList.remove('visible');

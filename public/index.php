@@ -1,7 +1,3 @@
-<?php require_once './vendor/parsedown/Parsedown.php'; #1.8 dev to fix PHP issues ?>
-<?php $Parsedown = new Parsedown(); ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,12 +75,8 @@
                 <span class="brick" role="presentation">U</span>
                 <span class="brick" role="presentation">T</span>
             </h2>
-            <?php
-            #    $md = file_get_contents('data/about.md');
-            #    echo $Parsedown->text($md);
-            ?>
-            <p class="platform" data-scene="1">I am a full-stack developer with over 20 years experience creating accessible, comprehensive, and scalable web experiences. My experience as a full-stack developer allows me to solve design challenges while creating straight-forward and maintainable solutions to best serve the needs of the client. I have developed and maintained small and large-scale websites for businesses, schools, and non-profits in the greater Philadelphia area, working with Comcast/Xfinity, AARP, Cheshire Law Group, and many more.</p>
-            <p class="platform" data-scene="1">When I am not working or watching my kids at their school sport events, I enjoy gaming on my custom-built PC, buidling and designing with LEGO, and practicing real-life and in-game photography. I have been interested in programming since I was a kid, learning other programming languages that appealed to my problem-solving nature while looking for fun and creative ways to put the code the use.</p>
+            <p class="platform" data-scene="1">I am a full-stack developer with over 20 years of experience creating accessible, comprehensive, scalable, and user-friendly web solutions. With a strong foundation in both front-end and back-end development, I approach design challenges with straight-forward, maintainable solutions tailored to each client's needs. I have developed and maintained small and large-scale websites for organizations of all sizes—from local non-profits to national brands like Comcast/Xfinity and AARP—supporting businesses, schools, and legal groups throughout the greater Philadelphia area.</p>
+            <p class="platform" data-scene="1">When I’m not working or cheering on my kids at their sports events, I enjoy gaming on my custom-built PC, building and designing with LEGO, and exploring both real-life and in-game photography. I’ve been passionate about programming since I was a kid, drawn by its mix of logic and creativity. Over the years, I’ve explored various programming languages that satisfied my love of problem-solving and offered new ways to bring ideas to life.</p>
             <p class="platform eegg" data-scene="2">I also enjoy including Easter Eggs in fun projects, but who doesn't?</p>
         </div>
         <div class="monitor" role="presentation">

@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const utilities_js_1 = require("./utilities.js");
+import { randRange } from "./utilities.js";
 let debug = false;
 class Popup {
     constructor(parent, contents, classes, width, height) {
@@ -279,7 +277,7 @@ class Cloud extends Environment {
         this._image = image;
         this._spriteY = spriteY || 0;
         this._spriteX = 0; // First frame only
-        this._speed = (0, utilities_js_1.randRange)(25, 45) / 1000 || speed;
+        this._speed = randRange(25, 45) / 1000 || speed;
     }
     draw(context) {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
@@ -322,4 +320,4 @@ const Game = {
     Cloud,
     Platform
 };
-exports.default = Game;
+export default Game;

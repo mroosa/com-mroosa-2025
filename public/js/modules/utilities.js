@@ -1,17 +1,13 @@
-"use strict";
 /* js Utils */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.shuffleArray = exports.formatNumber = exports.randRange = void 0;
 // max/min function
-const randRange = (max, min) => {
+export const randRange = (max, min) => {
     if (min === null)
         min = 0;
     const range = max - min;
     return Math.floor(Math.random() * range) + min;
 };
-exports.randRange = randRange;
 // Format a number to human friendly (US) format
-const formatNumber = (number) => {
+export const formatNumber = (number) => {
     // Set type to number for working
     let rawNumber = (typeof (number) === 'string') ? Number(number) : number;
     // count the places of non-decimal number
@@ -40,9 +36,8 @@ const formatNumber = (number) => {
     // return
     return newNumber;
 };
-exports.formatNumber = formatNumber;
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
-const shuffleArray = (array) => {
+export const shuffleArray = (array) => {
     let currentIndex = array.length;
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
@@ -55,4 +50,3 @@ const shuffleArray = (array) => {
         ];
     }
 };
-exports.shuffleArray = shuffleArray;

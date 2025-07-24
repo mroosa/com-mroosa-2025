@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const carouselEl = document.querySelector(".carousel .film");
 const film = document.querySelector(".carousel .film");
 const filmGap = getComputedStyle(film).getPropertyValue("gap");
@@ -52,4 +50,4 @@ const Carousel = {
     carouselEl,
     setup
 };
-exports.default = Carousel;
+export default Carousel;

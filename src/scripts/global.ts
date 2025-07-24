@@ -1,10 +1,9 @@
-import {randRange, shuffleArray} from "./modules/utilities";
+import {randRange, shuffleArray} from "./modules/utilities.js";
 
-import Console from "./modules/console";
-import Carousel from "./modules/carousel";
-import Comparison from "./modules/before-after";
-// import Label from "./modules/label";
-import Game from "./modules/game";
+import Console from "./modules/console.js";
+import Carousel from "./modules/carousel.js";
+import Comparison from "./modules/before-after.js";
+import Game from "./modules/game.js";
 
 const {siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearLine, clearDisplay} = Console;
 const {filmGap} = Carousel;

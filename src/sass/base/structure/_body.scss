@@ -46,6 +46,7 @@ header {
     position: fixed;
     z-index: 100;
     background: transparent;
+    background: #1b4d9f00;
     -webkit-backdrop-filter: blur(0);
     backdrop-filter: blur(0);
     transition: background .25s, backdrop-filter .25s;

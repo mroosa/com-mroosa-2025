@@ -1,6 +1,4 @@
-"use strict";
 // Make the DIV element draggable:
-Object.defineProperty(exports, "__esModule", { value: true });
 function dragElement(thisObj, thisContainer) {
     let curXPos = 0;
     let newXPos = 0;
@@ -89,4 +87,4 @@ const setup = (id) => {
 const Comparison = {
     setup
 };
-exports.default = Comparison;
+export default Comparison;
