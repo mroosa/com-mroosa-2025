@@ -30,7 +30,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="files/mroosa-resume-202505.pdf" target="_blank">Resume</a></li>
+            <li><a href="files/mroosa-resume-202506.pdf" target="_blank">Resume</a></li>
             <li class="spacer"></li>
             <li class="social"><a id="icon-linkedin" target="_blank" href="https://www.linkedin.com/in/matthewroosa/">
                 <svg width="24" height="24" viewBox="0 0 24 24">
