@@ -1,55 +1,56 @@
-import {randRange, shuffleArray} from "./modules/utilities.js";
+import {randRange, shuffleArray} from "./modules/utilities";
 
-import Console from "./modules/console.js";
-import Carousel from "./modules/carousel.js";
-import Comparison from "./modules/before-after.js";
-// import Label from "./modules/label.js";
-import Game from "./modules/game.js";
+import Console from "./modules/console";
+import Carousel from "./modules/carousel";
+import Comparison from "./modules/before-after";
+// import Label from "./modules/label";
+import Game from "./modules/game";
 
 const {siteConsole, siteDisplay, siteTerminal, toggleConsole, submitLine, clearLine, clearDisplay} = Console;
 const {filmGap} = Carousel;
 
-let bonus = false;
-let isAnimating = false;
-let curScene = 1;
+let bonus: boolean = false;
+let isAnimating: boolean = false;
+let curScene: number = 1;
 
-window.onload = (w) => {
+window.onload = (w): void => {
     Carousel.setup();
     Comparison.setup();
     // Label.setup();
 
-    document.querySelectorAll(".input-wrap").forEach(e => {
-        e.querySelector("input, textarea").onfocus = () => {
-            e.classList.add("focused");
+    document.querySelectorAll<HTMLElement>(".input-wrap").forEach((wrap): void => {
+        (<HTMLInputElement>wrap.querySelector("input, textarea")).onfocus = (): void => {
+            wrap?.classList.add("focused");
         };
-        e.querySelector("input, textarea").onblur = () => {
-            e.classList.remove("focused");
+        (<HTMLInputElement>wrap.querySelector("input, textarea")).onblur = (): void => {
+            wrap?.classList.remove("focused");
         };
     });
-    window.onscroll = () => {checkScroll();};
+    window.onscroll = (): void => {checkScroll();};
     checkScroll();
 
-    document.getElementById('contact-form').onsubmit = (e) => {
-        e.preventDefault();
-        postData(e.target);
+    (<HTMLFormElement>document.getElementById('contact-form')).onsubmit = (e: Event): void => {
+        e?.preventDefault();
+        const targetForm = (<HTMLFormElement>e.target);
+        postData(targetForm);
     };
 
     // About block interactivity
-    document.querySelectorAll("#about h2 span").forEach(b => {
-        b.onclick = e => {
-            e.preventDefault();
+    document.querySelectorAll<HTMLElement>("#about h2 span").forEach((b): void => {
+        (<HTMLElement>b).onclick = (e):void => {
+            e?.preventDefault();
             hitBlock(b);
         }
     });
 
     // About background parallax
-    const intro = document.getElementById("intro");
-    const monitor = document.querySelector(".monitor");
-    let midGround = (window.innerWidth / 2);
-    let backGround = (window.innerWidth / 2);
+    const intro = (<HTMLElement>document.getElementById("intro"));
+    const monitor = (<HTMLElement>document.querySelector(".monitor"));
+    let midGround: number = (window.innerWidth / 2);
+    let backGround: number = (window.innerWidth / 2);
     monitor.style.backgroundPosition = `${midGround}px 95%, ${backGround}px 100%`;
     intro.style.backgroundPosition = `center, ${Math.floor(backGround)}px center, ${Math.floor(midGround * 2) + 300}px top, ${Math.floor(backGround * 2)}px center, center`;
-    let origX = 0;
+    let origX: number = 0;
     window.addEventListener("mousemove", (e) => {
         origX = e.clientX > origX ? 1: -1;
         midGround = (midGround - origX/3);
@@ -68,14 +69,14 @@ window.onload = (w) => {
     })
     
     // About "game"
-    const groundHt = 26;
-    const canvas = document.createElement("canvas");
-    const canvasParent = document.querySelector("#about .monitor");
+    const groundHt: number = 26;
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    const canvasParent: HTMLElement = document.querySelector("#about .monitor") as HTMLElement;
     canvasParent.appendChild(canvas);
     canvas.width = canvasParent.offsetWidth;
     canvas.height = canvasParent.offsetHeight - groundHt;
 
-    let ctx = canvas.getContext('2d');
+    let ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
     /// Player
     const input = new Game.InputHandler({
@@ -84,8 +85,8 @@ window.onload = (w) => {
         down: 'ArrowDown', 
         jump: 'ArrowUp'
     });
-    const plyrHt = 64;
-    const plyrWd = 48;
+    const plyrHt: number = 64;
+    const plyrWd: number = 48;
     const initX = canvas.width * .25; // 25%
     const initY = canvas.height - plyrHt - 100; // Start with playing jumping to engage interactivity
     const marty = new Game.Player(canvas.width, canvas.height, plyrWd, plyrHt, initX, initY, null, 4);
@@ -93,23 +94,26 @@ window.onload = (w) => {
     /// Environment
     
     //// Clouds
-    let cloudPosAry = ["8%,23%","13%,13%","24%,10%","49%,8%","68%,15%", "95%,10%"];
-    let cloudAry = [];
-    const numClouds = cloudPosAry.length;
-
-    for(let i = 0; i < numClouds; i++) {
-        shuffleArray(cloudPosAry);
-        const pos = cloudPosAry.pop().split(",");
-        const x = (parseInt(pos[0], 10) / 100) * canvas.width;
-        const y = (parseInt(pos[1], 10) / 100) * canvas.height;
-        const cloudSprite = randRange(1,5);
-        const cloudImage = document.getElementById("cloud");
-        const cloud = new Game.Cloud(canvas.width, canvas.height, 120, 60, x, y, cloudImage, cloudSprite);
-        cloudAry.push(cloud);
+    let cloudPosAry: string[] = ["8%,23%","13%,13%","24%,10%","49%,8%","68%,15%", "95%,10%"];
+    let cloudAry: any[] = [];
+    const numClouds: number = cloudPosAry.length;
+    if (numClouds > 0) {
+        for(let i: number = 0; i < numClouds; i++) {
+            shuffleArray(cloudPosAry);
+            const lastPos:string = cloudPosAry.pop() || '';
+            const pos: string[] = lastPos.split(",");
+            // const pos: string[] = cloudPosAry.pop().split(",");
+            const x: number = (parseInt(pos[0], 10) / 100) * canvas.width;
+            const y: number = (parseInt(pos[1], 10) / 100) * canvas.height;
+            const cloudSprite: number = randRange(1,5);
+            const cloudImage = (<HTMLElement>document.getElementById("cloud"));
+            const cloud = new Game.Cloud(canvas.width, canvas.height, 120, 60, x, y, cloudImage, cloudSprite);
+            cloudAry.push(cloud);
+        }
     }
 
     function animateClouds() {
-        cloudAry.forEach(cloud=> {
+        cloudAry.forEach((cloud)=> {
             cloud.draw(ctx);
             cloud.update();
         });
@@ -118,26 +122,29 @@ window.onload = (w) => {
     //// Platforms
     // Wrap platforms in a function so they can be re-calc'd on resize
     function getPlatforms() {
-        let _platformAry = [];
+        let _platformAry: any[] = [];
         // TODO: Look for "platform" class to auto add
-        const htmlPlatforms = document.querySelectorAll("#about .platform");
-        htmlPlatforms.forEach(e => {
-            if (e.hasAttribute('data-scene')) {
-                const platformScenes = e.attributes['data-scene'].value.split(",");
-                if (e.hasAttribute('data-scene') && platformScenes.includes(curScene.toString())) {
-                    const isSolid = (e.hasAttribute('data-platform-solid') && e.attributes['data-platform-solid']) ? true : false;
-                    const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, isSolid, e);
-                    _platformAry.push(platform);
+        const htmlPlatforms = document.querySelectorAll<HTMLElement>("#about .platform");
+        htmlPlatforms.forEach((el): void => {
+            if (el.hasAttribute('data-scene')) {
+                if (el.hasAttribute('data-scene') && el.getAttribute('data-scene') !== 'undefined') {
+                    const dataScene: string = el.getAttribute('data-scene')?.toString() || '';
+                    const platformScenes: string[] = dataScene.split(",");
+                    if (platformScenes.includes(curScene.toString())) {
+                        const isSolid = (el.hasAttribute('data-platform-solid') && el.getAttribute('data-platform-solid')) ? true : false;
+                        const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, isSolid, el);
+                        _platformAry.push(platform);
+                    }
                 }
             }
         });
         // console.log(_platformAry);
 
         // Hand picked elements
-        const aboutTitle = document.querySelectorAll("#about .contain h2 span");
-        aboutTitle.forEach(e => {
+        const aboutTitle = document.querySelectorAll<HTMLElement>("#about .contain h2 span");
+        aboutTitle.forEach(el => {
             // console.log(e);
-            const platform = new Game.Platform(canvas.width, canvas.height, e.offsetWidth, e.offsetHeight, e.offsetLeft, e.offsetTop, true, e, (e) => {hitBlock(e)});
+            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, (el: HTMLElement) => {hitBlock(el)});
             _platformAry.push(platform);
         })
         // const aboutParagraphs = document.querySelectorAll("#about .contain p");
@@ -156,11 +163,11 @@ window.onload = (w) => {
     }
     
     // Animate
-    let animationID = 0;
-    let lastTime = 0;
+    let animationID: number = 0;
+    let lastTime: number = 0;
 
-    function animateScene(timeStamp) {
-        const deltaTime = timeStamp - lastTime;
+    function animateScene(timeStamp: number = 0) {
+        const deltaTime: number = timeStamp - lastTime;
         lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (bonus) {
@@ -180,7 +187,7 @@ window.onload = (w) => {
         }
     }
 
-    function toggleAnimation(force) {
+    function toggleAnimation(force?: string) {
         if (force === 'pause') {
             isAnimating = false;
         } else {
@@ -197,19 +204,21 @@ window.onload = (w) => {
     function init() {
         if (window.innerWidth > 960) {
 
-            document.getElementById("about").removeEventListener('click', init);
-            document.querySelector(".popup.controls").classList.add('visible');
+            const popupControls = (<HTMLElement>document.querySelector(".popup.controls"));
+
+            (<HTMLElement>document.getElementById("about")).removeEventListener('click', init);
+            popupControls.classList.add('visible');
             let timeoutID = setTimeout( () => {
                 toggleAnimation();
-                document.querySelector('.popup.controls').classList.remove('visible');
+                popupControls.classList.remove('visible');
             }, 2500);
-            document.querySelector(".popup.controls").addEventListener('click', () => {
+            popupControls.addEventListener('click', () => {
                 clearInterval(timeoutID);
                 toggleAnimation();
             });
         }
     }
-    document.getElementById("about").addEventListener('click', init);
+    document.getElementById("about")?.addEventListener('click', init);
     if (window.innerWidth > 960) {
         animateScene(0);
     }
@@ -222,7 +231,7 @@ window.onload = (w) => {
         // console.log(canvas.height);
         cancelAnimationFrame(animationID);
         platformAry = getPlatforms();
-        ctx = canvas.getContext('2d');
+        ctx = canvas.getContext('2d')!;
         marty.resetBounds(canvas.width, canvas.height);
 
             // redraw
@@ -235,7 +244,7 @@ window.onload = (w) => {
     window.addEventListener("resize", resizeCanvas);
     
 
-    function toggleMenu(force) {
+    function toggleMenu(force?: string) {
         if (force === 'open') {
             document.body.classList.add('menu-open');
         } else if (force === 'close') {
@@ -246,17 +255,17 @@ window.onload = (w) => {
 
     }
     function setMobileMenu() {
-        document.querySelectorAll("nav li:not(.spacer)").forEach(l => {
+        document.querySelectorAll<HTMLElement>("nav li:not(.spacer)").forEach(l => {
             l.addEventListener('click', closeMenu);
         });
     }
     function closeMenu() {
         toggleMenu('close');
-        document.querySelectorAll("nav li:not(.spacer)").forEach(l => {
+        document.querySelectorAll<HTMLElement>("nav li:not(.spacer)").forEach(l => {
             l.removeEventListener('click', closeMenu);
         });
     }
-    document.getElementById("menu-toggle").addEventListener('click', e => {
+    document.getElementById("menu-toggle")?.addEventListener('click', e => {
         toggleMenu();
         setMobileMenu();
         e.preventDefault();
@@ -265,9 +274,9 @@ window.onload = (w) => {
 
 // "block" interactions
 const maxHits = 6; // for "special" blocks
-function hitBlock(b) {
+function hitBlock(b: HTMLElement) {
     // get num of hits on block
-    let blockHits = typeof(b.attributes['data-hits']) !== "undefined" ? b.attributes['data-hits'].value : 0;
+    let blockHits: number = typeof(b.getAttribute('data-hits')) !== "undefined" ? Number(b.getAttribute('data-hits')) : 0;
     // check for state change
     if (blockHits <= maxHits) {
         // add animation
@@ -291,22 +300,22 @@ function hitBlock(b) {
                 }, 250);                
             }
             blockHits++;
-            b.setAttribute("data-hits", blockHits);
+            b.setAttribute("data-hits", blockHits.toString());
         }
     }
 }
 
 function ee() {
-    document.getElementById("about").classList.add("space");
+    document.getElementById("about")?.classList.add("space");
     // Changes post scene change
     setTimeout(() => {
         bonus = true;
         curScene++;
-        document.querySelectorAll(".brick").forEach(e=>{e.classList.remove('brick');});
-        document.getElementById("about").setAttribute('data-current-scene', curScene);
-        document.querySelector("#about h2 span.special").classList.remove('special');
-        document.querySelectorAll('#about p[data-scene="1"]').forEach((e)=>{e.style.opacity = 0;});
-        document.querySelectorAll('#about p[data-scene="2"]').forEach((e)=>{e.style.opacity = 1;});
+        document.querySelectorAll<HTMLElement>(".brick").forEach(e=>{e.classList.remove('brick');});
+        document.getElementById("about")?.setAttribute('data-current-scene', curScene.toString());
+        document.querySelector("#about h2 span.special")?.classList.remove('special');
+        document.querySelectorAll<HTMLElement>('#about p[data-scene="1"]')?.forEach((e)=>{e.style.opacity = '0';});
+        document.querySelectorAll<HTMLElement>('#about p[data-scene="2"]')?.forEach((e)=>{e.style.opacity = '1';});
     }, 3000);
 }
 
@@ -315,20 +324,20 @@ function ee() {
 
 
 // Contact Form
-async function postData(form) {
+async function postData(form: HTMLFormElement) {
     let emailContents = new FormData();
-    form.querySelectorAll('input, textarea').forEach((i) => {
-        if (i.type !== 'submit') emailContents.append(i.attributes.name.value, i.value);
+    form.querySelectorAll<HTMLInputElement>('input, textarea').forEach((i) => {
+        if (i.type !== 'submit') emailContents.append(i.name, i.value);
     });
 
     const url = "templates/mailer-smtp.php";
     // const url = "templates/test.php";
     try {
-        form.querySelectorAll('.input-wrap:not(.submit-wrap)').forEach((i) => {
-            i.classList.add('disabled');
-            i.querySelector('input, textarea').setAttribute('disabled','disabled');
+        form.querySelectorAll<HTMLElement>('.input-wrap:not(.submit-wrap)').forEach((wrap) => {
+            wrap.classList.add('disabled');
+            (<HTMLInputElement>wrap.querySelector('input, textarea')).setAttribute('disabled','disabled');
         });
-        document.querySelector('.submit-wrap').classList.add('waiting');
+        document.querySelector('.submit-wrap')?.classList.add('waiting');
         
         const response = await fetch(url, {
             method: "POST",
@@ -339,34 +348,35 @@ async function postData(form) {
         } else {
             // debug using timeout
             // setTimeout(()=> {
-                document.querySelector('.submit-wrap').classList.remove('waiting');
-                document.getElementById('submit').value = "Thank You!";
+                document.querySelector('.submit-wrap')?.classList.remove('waiting');
+                (<HTMLInputElement>document.getElementById('submit')).value = "Thank You!";
             // }, 2000);
 
             setTimeout(()=> {
-                form.querySelectorAll('.input-wrap').forEach((i) => {
-                    i.classList.remove('disabled');
-                    i.querySelector('input, textarea').removeAttribute('disabled');
+                form.querySelectorAll<HTMLElement>('.input-wrap').forEach((wrap) => {
+                    wrap.classList.remove('disabled');
+                    wrap.querySelector('input, textarea')?.removeAttribute('disabled');
                 });
-                document.getElementById('submit').value = "Submit";
+                (<HTMLInputElement>document.getElementById('submit')).value = "Submit";
             },3000);
         }
   
         // alert('yay');
         console.log(await response);
-    } catch (error) {
+    } catch (error: any) {
         console.error(error.message);
     }
 
 }
 
 // let aboutHt = document.getElementById("intro").offsetHeight;
-function checkScroll() {
+function checkScroll(): void {
     let toTop = document.body.scrollTop || document.documentElement.scrollTop;
+    const header = (<HTMLElement>document.querySelector("header"));
     if (toTop > 50) {
-        document.querySelector("header").classList.add("scroll");
+        header.classList.add("scroll");
     } else {
-        document.querySelector("header").classList.remove("scroll");
+        header.classList.remove("scroll");
     }
     // document.querySelector("#intro h1").style.top = `${(aboutHt + toTop) / 2}px`;
 }

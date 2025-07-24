@@ -1,13 +1,14 @@
 // Make the DIV element draggable:
 
-function dragElement(thisObj, thisContainer) {
-    let curXPos = 0,
-        newXPos = 0;
-    const containerBounds = thisContainer.getBoundingClientRect(),
-        onion = thisContainer.querySelector(".onion"),
-        padAry = getComputedStyle(thisContainer).getPropertyValue('padding').split(" ");
+function dragElement(thisObj: HTMLElement, thisContainer: HTMLElement): void {
+    let curXPos: number = 0;
+    let newXPos: number = 0;
+    const containerBounds = thisContainer.getBoundingClientRect();
+    const onion = (<HTMLElement>thisContainer.querySelector(".onion"));
+    const padAry: string[] = getComputedStyle(thisContainer).getPropertyValue('padding').split(" ");
 
-    let leftPad, rightPad;
+    let leftPad: number = 0;
+    let rightPad: number = 0;
 
     if (padAry.length > 3) {
         leftPad = parseInt(padAry[1], 10);
@@ -20,17 +21,17 @@ function dragElement(thisObj, thisContainer) {
         rightPad = parseInt(padAry[0], 10);
     }
     
-    const leftBound = leftPad + containerBounds.left,
-        rightBound = containerBounds.right - rightPad;
+    const leftBound: number = leftPad + containerBounds.left;
+    const rightBound: number = containerBounds.right - rightPad;
 
 
     thisObj.onmousedown = dragMouseDown;
 
 
 
-    function dragMouseDown(e) {
+    function dragMouseDown(e: MouseEvent): void {
         e = e || window.event;
-        e.preventDefault();
+        e?.preventDefault();
         // console.log(containerBounds.left, containerBounds.right);
         // get the mouse cursor position at startup:
         curXPos = e.clientX;
@@ -39,12 +40,12 @@ function dragElement(thisObj, thisContainer) {
         document.onmousemove = elementDrag;
     }
 
-    function elementDrag(e) {
+    function elementDrag(e: MouseEvent): void {
         e = e || window.event;
         // calculate the new cursor position:
         newXPos = curXPos - e.clientX;
         e.preventDefault();
-        let beforeXPos = 0;
+        let beforeXPos: string = '0';
         if (curXPos > leftBound && curXPos < rightBound) {
             thisObj.style.left = `${thisObj.offsetLeft - newXPos}px`;
             beforeXPos = `${Math.floor(containerBounds.right - leftPad - curXPos)}px`;
@@ -52,18 +53,18 @@ function dragElement(thisObj, thisContainer) {
         } else {
             if (curXPos <= leftBound) {
                 beforeXPos = `${onion.offsetWidth - 4}px`;
-                thisObj.style.left = 0;
+                thisObj.style.left = '0';
             } else if (curXPos >= rightBound) {
-                beforeXPos = 0; 
+                beforeXPos = '0'; 
                 thisObj.style.left = `${onion.offsetWidth - 4}px`;
             }
         }
-        thisContainer.querySelector('.before').style.right = beforeXPos;
+        (<HTMLElement>thisContainer.querySelector('.before')).style.right = beforeXPos;
         curXPos = e.clientX;
         // set the element's new position:
     }
 
-    function closeDragElement() {
+    function closeDragElement(): void {
         // stop moving when mouse button is released:
         // console.log(curXPos);
         // if(curXPos < leftBound) {
@@ -79,13 +80,13 @@ function dragElement(thisObj, thisContainer) {
     }
 }
 
-const setup = id => {
+const setup = (id?: string): void => {
     if (id) {
         document.getElementById(id);
     } else {
-        document.querySelectorAll(".compare").forEach((k)=> {
-            const grip = document.querySelector("." + k.classList[0] + " .grip");
-            const container = k;
+        document.querySelectorAll(".compare").forEach((k): void => {
+            const grip = (<HTMLElement>document.querySelector("." + k.classList[0] + " .grip"));
+            const container = (<HTMLElement>k);
             dragElement(grip, container);
         });
     }
