@@ -2,18 +2,21 @@ import { randRange } from "./utilities.js";
 
 let debug = false;
 
-class Popup {
-    private _parent: string | null;
-    private _classes: string[];
-    private _contents: HTMLElement;
-    private _width: string | undefined;
-    private _height: string | undefined;
+interface Popup {
+    _parent: HTMLElement | string | null,
+    _classes: string[],
+    _contents: HTMLElement,
+    _width: string | undefined,
+    _height: string | undefined
+}
 
-    constructor(parent: string | null, contents: HTMLElement, classes: string[], width: string | undefined, height: string | undefined) {
+class Popup {
+
+    constructor(parent: HTMLElement | string | null, contents: HTMLElement, classes: string[], width?: string | undefined, height?: string | undefined) {
         if (typeof(parent) === 'object') {
             this._parent = parent;
         } else if (typeof(parent) === 'string') {
-            this._parent = document.querySelector(parent);
+            this._parent = document.querySelector<HTMLElement>(parent);
         } else {
             this._parent = document.body;
         }
@@ -35,7 +38,7 @@ class Popup {
         });
         popup.append(this._contents);
         popupContainer.append(popup);
-        this._parent.append(popupContainer);
+        this._parent!.append(popupContainer);
         
     }
     close(popup: HTMLElement) {
@@ -46,12 +49,18 @@ class Popup {
     }
 }
 
-class InputHandler {
-    private _reservedKeys: object[];
-    private keys: string[];
-    private noRepeat: string[];
+interface ReservedKeys {
+    [index: string]: string;
+}
 
-    constructor(reservedKeys: object) {
+interface InputHandler {
+    _reservedKeys: ReservedKeys,
+    keys: string[],
+    noRepeat: string[]
+}
+
+class InputHandler {
+    constructor(reservedKeys: ReservedKeys) {
         // Abstract the keymapping to allow for possible changes to buttons
         this._reservedKeys = reservedKeys;
         this.keys = [];
@@ -94,31 +103,33 @@ class InputHandler {
     }
 }
 
-class Player {
-    private _sceneWidth: number;
-    private _sceneHeight: number;
-    private _width: number;
-    private _height: number;
-    private _groundLevel: number;
-    private _skyLimit: number;
-    private _x: number;
-    private _y: number;
-    private _sprite: string;
-    private _spriteX: number;
-    private _spriteY: number;
-    private _numXSprite: number;
-    private _numYSprite: number;
-    private _fps: number;
-    private _frameTimer: number;
-    private _frameInterval: number;
-    private _deltaX: number;
-    private _deltaY: number;
-    private _gravity: number;
-    private _lowerBound: number;
-    private _upperBound: number;
-    private _direction: number;
-    
-    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, sprite: HTMLElement | string | null, spriteX?: number, spriteY?: number) {
+interface Player {
+    _sceneWidth: number,
+    _sceneHeight: number,
+    _width: number,
+    _height: number,
+    _groundLevel: number,
+    _skyLimit: number,
+    _x: number,
+    _y: number,
+    _sprite: HTMLElement | null,
+    _spriteX: number,
+    _spriteY: number,
+    _numXSprite: number,
+    _numYSprite: number,
+    _fps: number,
+    _frameTimer: number,
+    _frameInterval: number,
+    _deltaX: number,
+    _deltaY: number,
+    _gravity: number,
+    _lowerBound: number,
+    _upperBound: number,
+    _direction: boolean
+}
+
+class Player {   
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, sprite: HTMLElement | null, spriteX?: number, spriteY?: number) {
         this._sceneWidth = sceneWidth;
         this._sceneHeight = sceneHeight;
         this._width = width || 48;
@@ -127,7 +138,7 @@ class Player {
         this._skyLimit = -200; // Default max
         this._x = x || 0;
         this._y = y || this._groundLevel;
-        this._sprite = sprite || document.getElementById("playerSprite") || "";
+        this._sprite = sprite || document.getElementById("playerSprite");
         this._spriteX = spriteX || 0; // default top left - multiply by width/height for frame
         this._spriteY = spriteY || 0; // default top left - multiply by width/height for frame
         this._numXSprite = 4; // Being lazy
@@ -149,9 +160,9 @@ class Player {
             context.strokeRect(this._x, this._y, this._width, this._height);
         }
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
-        context.drawImage(this._sprite, this._spriteX * this._width, this._spriteY * this._height, this._width, this._height, this._x, this._y, this._width, this._height);
+        context.drawImage((<CanvasImageSource>this._sprite), this._spriteX * this._width, this._spriteY * this._height, this._width, this._height, this._x, this._y, this._width, this._height);
     }
-    update(input, platforms, deltaTime, bonus) {
+    update(input: InputHandler, platforms: any[], deltaTime: number, bonus: boolean) {
 
         // horizontal input
         if (input.keys.indexOf('ArrowLeft') > -1) {
@@ -189,14 +200,14 @@ class Player {
         if (this._x > this._sceneWidth) this._x = -this._width;
 
         // vertical input
-        let ceiling = this._skyLimit; // Temp reset to upper
-        let floor = this._groundLevel; // Temp reset to lower
-        let isPlatform = false; // Asume there is no platform
-        let onPermiablePlatform = false; // Assume ground/platform is solid
-        let platformCallback = null;
+        let ceiling: number = this._skyLimit; // Temp reset to upper
+        let floor: number = this._groundLevel; // Temp reset to lower
+        let isPlatform: boolean = false; // Asume there is no platform
+        let onPermiablePlatform: boolean = false; // Assume ground/platform is solid
+        let platformCallback = (): void => {};
         
         // Go through all platforms to determine eligibility
-        platforms.forEach(p => {
+        platforms.forEach((p) => {
             // If player is between edges of platform
             if (this._x + this._width > p._x && this._x < p._x + p._width) {
                 // return true if player is between the x bounds of a platform
@@ -206,7 +217,7 @@ class Player {
                     // set the ceiling to the lowest solid platform above the players head
                     ceiling = (p._y + p._height > ceiling) ? p._y + p._height : ceiling;
                     if (p._callback !== null) {
-                        platformCallback = () => {p._callback(p._source)};
+                        platformCallback = (): void => {p._callback!(p._source)};
                     }
                 }
                 // Find the platform player is standing on, set permiability
@@ -219,11 +230,11 @@ class Player {
                 }
             }
         });
-        if (isPlatform === true) {
+        if (!isPlatform) {
+            this._lowerBound = this._groundLevel;
+        } else {
             this._upperBound = ceiling;
             this._lowerBound = floor;
-        } else {
-            this._lowerBound = this._groundLevel;
         }
         if (input.keys.indexOf('ArrowUp') > -1 && this.isGrounded()) {
             // Prevent jupming from repeating without a new key press
@@ -300,14 +311,16 @@ class Player {
     }
 }
 
+interface Environment {
+    _sceneWidth: number,
+    _sceneHeight: number,
+    _width: number,
+    _height: number,
+    _x: number,
+    _y: number
+}
+
 class Environment {
-    private _sceneWidth: number;
-    private _sceneHeight: number;
-    private _width: number;
-    private _height: number;
-    private _x: number;
-    private _y: number;
-    
     constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number) {
         this._sceneWidth = sceneWidth;
         this._sceneHeight = sceneHeight;
@@ -318,22 +331,24 @@ class Environment {
     }
 }
 
-class Cloud extends Environment {
-    private _image: HTMLElement;
-    private _spriteY: number;
-    private _spriteX: number;
-    private _speed: number;
+interface Cloud {
+    _image: HTMLElement,
+    _spriteY: number,
+    _spriteX: number,
+    _speed: number
+}
 
+class Cloud extends Environment {
     constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, image: HTMLElement, spriteY?: number, speed?: number) {
         super(sceneWidth, sceneHeight, width, height, x, y);
         this._image = image;
         this._spriteY = spriteY || 0;
         this._spriteX = 0; // First frame only
-        this._speed = randRange(25,45) / 1000 || speed;
+        this._speed = speed || randRange(25,45) / 1000;
     }
     draw(context: CanvasRenderingContext2D) {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
-        context.drawImage(this._image, this._width * this._spriteX, this._height * this._spriteY, this._width, this._height, this._x, this._y, this._width, this._height);
+        context.drawImage((<CanvasImageSource>this._image), this._width * this._spriteX, this._height * this._spriteY, this._width, this._height, this._x, this._y, this._width, this._height);
     }
     update() {
         this._x -= this._speed;
@@ -342,26 +357,29 @@ class Cloud extends Environment {
 
 }
 
+interface Platform {
+    _notPermiable: boolean,
+    _source: HTMLElement | null,
+    _callback: any
+
+}
+
 class Platform extends Environment {
-    private _notPermiable: number;
-    private _source: number;
-    private _callback: number;
-    
-    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, notPermiable: boolean, source?, callback?) {
+    constructor(sceneWidth: number, sceneHeight: number, width: number, height: number, x: number, y: number, notPermiable: boolean, source?: HTMLElement | null, callback?: any) {
         super(sceneWidth, sceneHeight, width, height, x, y);
         this._notPermiable = notPermiable || false;
         this._source = source || null;
         this._callback = callback || null;
     }
 
-    draw(context) {
+    draw(context: { fillStyle: string; fillRect: (arg0: number, arg1: number, arg2: number, arg3: number) => void; strokeStyle: string; strokeRect: (arg0: number, arg1: number, arg2: number, arg3: number) => void; text: string; lineWidth: number; strokeText: (arg0: string, arg1: number, arg2: number) => void; fillText: (arg0: string, arg1: number, arg2: number) => void; }) {
         // Invisible boxes
         context.fillStyle = "#0000";
         context.fillRect(this._x, this._y, this._width, this._height);
         if (debug) {
             context.strokeStyle = "#f90";
             context.strokeRect(this._x, this._y, this._width, this._height);
-            let info = `${this._width}x${this._height} • (${this._x},${this._y}) • permiable: ${this._permiable}`;
+            let info: string = `${this._width}x${this._height} • (${this._x},${this._y}) • permiable: ${this._notPermiable}`;
             context.text = "12px Arial";
             context.strokeStyle = "#fff";
             context.lineWidth = 2;

@@ -143,7 +143,8 @@ window.onload = (w): void => {
         const aboutTitle = document.querySelectorAll<HTMLElement>("#about .contain h2 span");
         aboutTitle.forEach(el => {
             // console.log(e);
-            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, (el: HTMLElement) => {hitBlock(el)});
+            const callBack = (el: HTMLElement): void => {hitBlock(el)}
+            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, callBack);
             _platformAry.push(platform);
         })
         // const aboutParagraphs = document.querySelectorAll("#about .contain p");

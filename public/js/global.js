@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { randRange, shuffleArray } from "./modules/utilities.js";
 import Console from "./modules/console.js";
 import Carousel from "./modules/carousel.js";
@@ -136,7 +127,8 @@ window.onload = (w) => {
         const aboutTitle = document.querySelectorAll("#about .contain h2 span");
         aboutTitle.forEach(el => {
             // console.log(e);
-            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, (el) => { hitBlock(el); });
+            const callBack = (el) => { hitBlock(el); };
+            const platform = new Game.Platform(canvas.width, canvas.height, el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop, true, el, callBack);
             _platformAry.push(platform);
         });
         // const aboutParagraphs = document.querySelectorAll("#about .contain p");
@@ -303,51 +295,49 @@ function ee() {
     }, 3000);
 }
 // Contact Form
-function postData(form) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
-        let emailContents = new FormData();
-        form.querySelectorAll('input, textarea').forEach((i) => {
-            if (i.type !== 'submit')
-                emailContents.append(i.name, i.value);
-        });
-        const url = "templates/mailer-smtp.php";
-        // const url = "templates/test.php";
-        try {
-            form.querySelectorAll('.input-wrap:not(.submit-wrap)').forEach((wrap) => {
-                wrap.classList.add('disabled');
-                wrap.querySelector('input, textarea').setAttribute('disabled', 'disabled');
-            });
-            (_a = document.querySelector('.submit-wrap')) === null || _a === void 0 ? void 0 : _a.classList.add('waiting');
-            const response = yield fetch(url, {
-                method: "POST",
-                body: emailContents
-            });
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
-            else {
-                // debug using timeout
-                // setTimeout(()=> {
-                (_b = document.querySelector('.submit-wrap')) === null || _b === void 0 ? void 0 : _b.classList.remove('waiting');
-                document.getElementById('submit').value = "Thank You!";
-                // }, 2000);
-                setTimeout(() => {
-                    form.querySelectorAll('.input-wrap').forEach((wrap) => {
-                        var _a;
-                        wrap.classList.remove('disabled');
-                        (_a = wrap.querySelector('input, textarea')) === null || _a === void 0 ? void 0 : _a.removeAttribute('disabled');
-                    });
-                    document.getElementById('submit').value = "Submit";
-                }, 3000);
-            }
-            // alert('yay');
-            console.log(yield response);
-        }
-        catch (error) {
-            console.error(error.message);
-        }
+async function postData(form) {
+    var _a, _b;
+    let emailContents = new FormData();
+    form.querySelectorAll('input, textarea').forEach((i) => {
+        if (i.type !== 'submit')
+            emailContents.append(i.name, i.value);
     });
+    const url = "templates/mailer-smtp.php";
+    // const url = "templates/test.php";
+    try {
+        form.querySelectorAll('.input-wrap:not(.submit-wrap)').forEach((wrap) => {
+            wrap.classList.add('disabled');
+            wrap.querySelector('input, textarea').setAttribute('disabled', 'disabled');
+        });
+        (_a = document.querySelector('.submit-wrap')) === null || _a === void 0 ? void 0 : _a.classList.add('waiting');
+        const response = await fetch(url, {
+            method: "POST",
+            body: emailContents
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        else {
+            // debug using timeout
+            // setTimeout(()=> {
+            (_b = document.querySelector('.submit-wrap')) === null || _b === void 0 ? void 0 : _b.classList.remove('waiting');
+            document.getElementById('submit').value = "Thank You!";
+            // }, 2000);
+            setTimeout(() => {
+                form.querySelectorAll('.input-wrap').forEach((wrap) => {
+                    var _a;
+                    wrap.classList.remove('disabled');
+                    (_a = wrap.querySelector('input, textarea')) === null || _a === void 0 ? void 0 : _a.removeAttribute('disabled');
+                });
+                document.getElementById('submit').value = "Submit";
+            }, 3000);
+        }
+        // alert('yay');
+        console.log(await response);
+    }
+    catch (error) {
+        console.error(error.message);
+    }
 }
 // let aboutHt = document.getElementById("intro").offsetHeight;
 function checkScroll() {

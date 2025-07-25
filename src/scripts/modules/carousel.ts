@@ -39,7 +39,6 @@ const setup = (id?: string): void => {
                             const percentage: number = (thisDot != 0) ? -thisDot * 100 : 0;
                             const newOffset: number = thisDot * filmGap;
                             const newFrame: string = `calc(${percentage}% - ${newOffset}px)`;
-                            console.log(filmGap, newFrame);
                             (<HTMLElement>k.querySelector('.film')).style.left = (thisDot != 0) ? newFrame : '0';
                         }
                     }

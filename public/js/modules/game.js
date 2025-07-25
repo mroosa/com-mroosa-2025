@@ -86,7 +86,7 @@ class Player {
         this._skyLimit = -200; // Default max
         this._x = x || 0;
         this._y = y || this._groundLevel;
-        this._sprite = sprite || document.getElementById("playerSprite") || "";
+        this._sprite = sprite || document.getElementById("playerSprite");
         this._spriteX = spriteX || 0; // default top left - multiply by width/height for frame
         this._spriteY = spriteY || 0; // default top left - multiply by width/height for frame
         this._numXSprite = 4; // Being lazy
@@ -156,9 +156,9 @@ class Player {
         let floor = this._groundLevel; // Temp reset to lower
         let isPlatform = false; // Asume there is no platform
         let onPermiablePlatform = false; // Assume ground/platform is solid
-        let platformCallback = null;
+        let platformCallback = () => { };
         // Go through all platforms to determine eligibility
-        platforms.forEach(p => {
+        platforms.forEach((p) => {
             // If player is between edges of platform
             if (this._x + this._width > p._x && this._x < p._x + p._width) {
                 // return true if player is between the x bounds of a platform
@@ -181,12 +181,12 @@ class Player {
                 }
             }
         });
-        if (isPlatform === true) {
-            this._upperBound = ceiling;
-            this._lowerBound = floor;
+        if (!isPlatform) {
+            this._lowerBound = this._groundLevel;
         }
         else {
-            this._lowerBound = this._groundLevel;
+            this._upperBound = ceiling;
+            this._lowerBound = floor;
         }
         if (input.keys.indexOf('ArrowUp') > -1 && this.isGrounded()) {
             // Prevent jupming from repeating without a new key press
@@ -277,7 +277,7 @@ class Cloud extends Environment {
         this._image = image;
         this._spriteY = spriteY || 0;
         this._spriteX = 0; // First frame only
-        this._speed = randRange(25, 45) / 1000 || speed;
+        this._speed = speed || randRange(25, 45) / 1000;
     }
     draw(context) {
         //drawImage vars: imageFile, sourceX, sourceY, souceWidth, sourceHeight, xPos, yPos, width, height
@@ -303,7 +303,7 @@ class Platform extends Environment {
         if (debug) {
             context.strokeStyle = "#f90";
             context.strokeRect(this._x, this._y, this._width, this._height);
-            let info = `${this._width}x${this._height} • (${this._x},${this._y}) • permiable: ${this._permiable}`;
+            let info = `${this._width}x${this._height} • (${this._x},${this._y}) • permiable: ${this._notPermiable}`;
             context.text = "12px Arial";
             context.strokeStyle = "#fff";
             context.lineWidth = 2;
