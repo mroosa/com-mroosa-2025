@@ -356,6 +356,7 @@ async function postData(form: HTMLFormElement) {
                 form.querySelectorAll<HTMLElement>('.input-wrap').forEach((wrap) => {
                     wrap.classList.remove('disabled');
                     wrap.querySelector('input, textarea')?.removeAttribute('disabled');
+                    wrap.querySelector<HTMLInputElement>('input, textarea')!.value = '';
                 });
                 (<HTMLInputElement>document.getElementById('submit')).value = "Submit";
             },3000);

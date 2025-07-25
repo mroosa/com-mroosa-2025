@@ -328,6 +328,7 @@ async function postData(form) {
                     var _a;
                     wrap.classList.remove('disabled');
                     (_a = wrap.querySelector('input, textarea')) === null || _a === void 0 ? void 0 : _a.removeAttribute('disabled');
+                    wrap.querySelector('input, textarea').value = '';
                 });
                 document.getElementById('submit').value = "Submit";
             }, 3000);
