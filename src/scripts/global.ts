@@ -29,7 +29,7 @@ window.onload = (w): void => {
     checkScroll();
 
     (<HTMLFormElement>document.getElementById('contact-form')).onsubmit = (e: Event): void => {
-        e?.preventDefault();
+        e!.preventDefault();
         const targetForm = (<HTMLFormElement>e.target);
         postData(targetForm);
     };
@@ -37,7 +37,7 @@ window.onload = (w): void => {
     // About block interactivity
     document.querySelectorAll<HTMLElement>("#about h2 span").forEach((b): void => {
         (<HTMLElement>b).onclick = (e):void => {
-            e?.preventDefault();
+            e!.preventDefault();
             hitBlock(b);
         }
     });
@@ -361,8 +361,7 @@ async function postData(form: HTMLFormElement) {
             },3000);
         }
   
-        // alert('yay');
-        console.log(await response);
+        // console.log(await response);
     } catch (error: any) {
         console.error(error.message);
     }

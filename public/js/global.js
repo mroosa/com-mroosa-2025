@@ -24,14 +24,14 @@ window.onload = (w) => {
     window.onscroll = () => { checkScroll(); };
     checkScroll();
     document.getElementById('contact-form').onsubmit = (e) => {
-        e === null || e === void 0 ? void 0 : e.preventDefault();
+        e.preventDefault();
         const targetForm = e.target;
         postData(targetForm);
     };
     // About block interactivity
     document.querySelectorAll("#about h2 span").forEach((b) => {
         b.onclick = (e) => {
-            e === null || e === void 0 ? void 0 : e.preventDefault();
+            e.preventDefault();
             hitBlock(b);
         };
     });
@@ -332,8 +332,7 @@ async function postData(form) {
                 document.getElementById('submit').value = "Submit";
             }, 3000);
         }
-        // alert('yay');
-        console.log(await response);
+        // console.log(await response);
     }
     catch (error) {
         console.error(error.message);
