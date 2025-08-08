@@ -18,6 +18,17 @@
 
     <script src="js/global.js" type="module"></script>
 </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QY3JQZP9Y1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QY3JQZP9Y1');
+</script>
+
 <body>
 <div id="console">
     <div id="display"></div>
